@@ -26,6 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         />
         {(actionTitle || actionIcon) && (
           <button
+            type="button"
             className="flex items-center whitespace-nowrap rounded-md bg-bgMedium px-3 py-2 text-xs text-txtLight active:opacity-20"
             onClick={(e) => {
               e.preventDefault();

@@ -10,7 +10,7 @@ import { DropdownMenu } from "~/components/molecules";
 
 import { AuthForm } from "../AuthForm";
 
-export const UserController: React.FC = () => {
+export const UserManager: React.FC = () => {
   const { data: session, status } = useSession();
   const setUser = useUserStore((state) => state.setUser);
   const signIn = useUserStore((state) => state.signIn);
@@ -33,8 +33,8 @@ export const UserController: React.FC = () => {
       const localUser: User = {
         displayName: session.user.name,
         avatar: session.user.image,
-        userId: String(session.sub),
-        provider: String(session.provider) as any,
+        userId: String((session as any).sub),
+        provider: String((session as any).provider) as any,
       };
       const parsedUser = UserSchema.parse(localUser);
       setUser(parsedUser);
@@ -55,7 +55,6 @@ export const UserController: React.FC = () => {
       )}
       <Modal
         title="Login"
-        description="Complete your information"
         open={showAuthModal}
         defaultOpen={showAuthModal}
         onOpenChange={(val) => setShowAuthModal(val)}

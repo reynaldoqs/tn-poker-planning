@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Logo from "~/public/assets/PPPP_logo.png";
 
 export const Brand: React.FC = () => (
   <div className="flex items-center justify-center gap-6">
     <Image
-      src="/assets/PPPP_logo.png"
+      src={Logo}
+      placeholder="blur"
       alt="poker planning logo"
-      width="48px"
-      height="52px"
+      className="w-12"
     />
     <div>
       <h2 className="text-2xl font-bold leading-5 text-txtMedium">

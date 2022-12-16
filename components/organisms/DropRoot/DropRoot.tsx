@@ -32,16 +32,18 @@ export const DropRoot: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
 ) => (
   <section className="relative flex flex-col gap-9">
     <div>
-      <h1 className="text-5xl font-black text-primary">Scrum Planning?</h1>
-      <h2 className="text-4xl font-black text-txtLight">
+      <h1 className="text-center text-5xl font-black text-primary md:text-left">
+        Scrum Planning?
+      </h1>
+      <h2 className="text-center text-4xl font-black text-txtLight md:text-left">
         Make it easy, magic.
       </h2>
     </div>
-    <p className="text-md font-semibold text-txtDark">
+    <p className="text-md text-center font-semibold text-txtDark md:text-left">
       Create better estimates, healthier sprints, and happier teams.
       <br /> With tons of advantages:
     </p>
-    <div className="flex gap-8">
+    <div className="flex select-none flex-wrap items-center justify-center gap-8  md:justify-start md:gap-4 lg:gap-8">
       {features.map(({ title, description, icon, className }) => (
         <FeatureCard
           key={title}

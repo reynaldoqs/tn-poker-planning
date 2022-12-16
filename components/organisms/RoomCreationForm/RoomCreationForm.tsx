@@ -1,4 +1,6 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { ZodError } from "zod";
 
@@ -12,10 +14,13 @@ import {
   Select,
   ToggleGroup,
 } from "~/components";
-import { DECK_CARDS, DECK_OPTIONS } from "~/constants";
+import { LoadingState } from "~/components/molecules/LoadingState";
+import { DECK_CARDS, DECK_OPTIONS, ROOM_KEY_ID } from "~/constants";
+import { createRoom } from "~/services/room";
 import useUserStore from "~/stores/user";
 import { Room, RoomConfig, RoomSchema } from "~/types";
 import { extractErrorMsg } from "~/utils";
+import { RoomCreationFormProps } from "./RoomCreationForm.types";
 
 const initialValues: Room = {
   roomConfig: {
@@ -31,8 +36,9 @@ const initialValues: Room = {
   players: [],
 };
 
-export const RoomCreationForm: React.FC = (props) => {
+export const RoomCreationForm: React.FC<RoomCreationFormProps> = (props) => {
   const currentUser = useUserStore((state) => state.user);
+  const router = useRouter();
   const initialValuesWithOwner: Room = {
     ...initialValues,
     roomConfig: {
@@ -48,15 +54,22 @@ export const RoomCreationForm: React.FC = (props) => {
   const [roomForm, setRoomForm] = useState<Room>(initialValuesWithOwner);
   const [error, setError] = useState<ZodError | null>(null);
   const [issuesModal, setIssuesModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     const parsedRoom = RoomSchema.safeParse(roomForm);
     const isValidFormData = parsedRoom.success;
     if (!isValidFormData) {
       setError(parsedRoom.error);
+      setIsLoading(false);
       return;
     }
+    const newRoom = await createRoom(parsedRoom.data);
+    //router.push(`room/63792c2594b15d6aa4e1feb9`);
+
+    router.push(`room/${newRoom._id}`);
   };
 
   useEffect(() => {
@@ -65,10 +78,12 @@ export const RoomCreationForm: React.FC = (props) => {
 
   return (
     <section {...props}>
-      <form
-        className="relative flex w-full flex-col gap-9 rounded-3xl bg-bgMedium px-9 pt-8 pb-10 text-center"
+      <motion.form
+        className="relative flex w-full flex-col gap-9 overflow-hidden rounded-3xl bg-bgMedium px-9 pt-8 pb-10 text-center"
         onSubmit={handleSubmit}
+        layoutId={ROOM_KEY_ID}
       >
+        <LoadingState isLoading={isLoading} />
         <h3 className="text-xl font-bold text-txtLight">Poker planning Room</h3>
         <fieldset className="mt-3 text-left">
           <Label htmlFor="game_title">Game title</Label>
@@ -149,7 +164,7 @@ export const RoomCreationForm: React.FC = (props) => {
           />
         </fieldset>
         <Button title="Continue" size="lg" className="mx-auto mt-7 w-11/12" />
-      </form>
+      </motion.form>
       <Modal
         open={issuesModal}
         onOpenChange={(val) => setIssuesModal(val)}

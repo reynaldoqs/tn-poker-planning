@@ -22,6 +22,11 @@ module.exports = {
         error: "#ff0047",
         success: "#01dc69",
       },
+      borderRadius: {
+        pk_sm: "1rem",
+        pk_md: "2rem",
+        pk_lg: "3rem",
+      },
     },
   },
   plugins: [require("tailwindcss-radix")()],

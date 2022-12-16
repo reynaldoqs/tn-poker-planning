@@ -10,3 +10,4 @@ export * from "./Modal";
 export * from "./Avatar";
 export * from "./MenuItem";
 export * from "./IssueItem";
+export * from "./Loader";

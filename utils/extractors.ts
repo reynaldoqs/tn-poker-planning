@@ -12,6 +12,7 @@ import {
 import { ZodIssue } from "zod";
 
 import { AUTH_PROVIDERS } from "~/constants";
+import { Room } from "~/types";
 
 const extractBrowserIcon = () => {
   const userAgent = navigator.userAgent;
@@ -37,3 +38,7 @@ export const extractProviderIcon = (provider?: keyof typeof AUTH_PROVIDERS) => {
 
 export const extractErrorMsg = (err: ZodIssue) =>
   `${err.path.at(-1)} ${err.message.toLocaleLowerCase()}`;
+
+export const extractParticipant = (room: Room, playerId: string) => {
+  return room.players.find((p) => p.playerId === playerId)!;
+};

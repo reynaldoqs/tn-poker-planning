@@ -29,8 +29,8 @@ const options: NextAuthOptions = {
       }
       return token;
     },
-    session({ session, token }) {
-      session.provider = token.provider;
+    session({ session, token }: any) {
+      session.provider = token.provider as any;
       session.sub = token.sub;
       return session;
     },
@@ -38,5 +38,3 @@ const options: NextAuthOptions = {
 };
 
 export default NextAuth(options);
-
-//export default (req, res) => NextAuth(req, res, options);

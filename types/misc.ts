@@ -5,3 +5,9 @@ export type RecursivePartial<T> = {
 };
 
 export type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>;
+
+export type ArgumentTypes<F extends Function> = F extends (
+  ...args: infer A
+) => any
+  ? A
+  : never;

@@ -76,4 +76,4 @@ export type LocalBoardStatus = BoardStatus | "COUNTING_DOWN";
 
 export type Player = Room["players"][number];
 
-export type RoomSocket = Socket & { activeRoom?: string; player?: Player };
+//export type RoomSocket = Socket & { activeRoom?: string; player?: Player };
