@@ -1,6 +1,5 @@
 import { z } from "zod";
 import type { Document } from "mongoose";
-import type { Socket } from "socket.io";
 
 import {
   ISSUE_STATUS,
@@ -12,6 +11,7 @@ import {
   AVAILABLE_REACTIONS,
   PLAYER_TYPES,
 } from "~/constants";
+import { ValuesOf } from "./misc";
 
 export const RoomSchema = z.object({
   roomConfig: z.object({
@@ -72,8 +72,6 @@ export type BoardConfig = Room["boardConfig"];
 export type BoardStatus = Room["boardStatus"];
 
 // To avoid spam db/server with countdown room state
-export type LocalBoardStatus = BoardStatus | "COUNTING_DOWN";
+export type LocalBoardStatus = Room["boardStatus"] | "COUNTING_DOWN";
 
-export type Player = Room["players"][number];
-
-//export type RoomSocket = Socket & { activeRoom?: string; player?: Player };
+export type Player = ValuesOf<Room["players"]>;

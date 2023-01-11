@@ -17,10 +17,7 @@ export class MongoDatabase implements RoomDatabase {
   private constructor() {}
 
   public static get Instance() {
-    console.log("---roomStoreManager instance", this._instance);
-    console.log("--after");
     const instance = this._instance || (this._instance = new this());
-    console.log("--after", this._instance.getRoom);
     return instance;
   }
 

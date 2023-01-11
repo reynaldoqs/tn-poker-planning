@@ -17,13 +17,13 @@ export const Avatar: React.FC<AvatarProps> = ({
   ...rest
 }) => (
   <AvatarPrimitive.Root
-    className={`flex h-11 w-11 select-none items-center justify-center overflow-hidden rounded-full bg-bgDarker ${className}`}
+    className={`flex h-11 w-11 select-none items-center justify-center overflow-hidden rounded-2xl bg-bgDarker ${className}`}
     {...rest}
   >
     <AvatarPrimitive.Image
       src={src}
       alt={alt}
-      className="h-full w-full rounded-full object-cover"
+      className="h-full w-full object-cover"
     />
     <AvatarPrimitive.Fallback
       delayMs={1800}

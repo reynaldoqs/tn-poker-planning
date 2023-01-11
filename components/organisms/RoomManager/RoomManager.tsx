@@ -1,27 +1,44 @@
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect } from "react";
+
 import { RoomSocketManager } from "~/listeners/socketManager.client";
-import useRoomStore from "~/stores/room";
-import useUserStore from "~/stores/user";
+import { useBoundStore } from "~/stores";
 import { DocumentRoom } from "~/types";
 import { userToPlayer } from "~/utils";
 
-let itAlreadyExecutedSubscribe = false;
+let executed = false;
 
 export const RoomManager: React.FC<{ room: DocumentRoom }> = ({ room }) => {
-  const { setConnected, setRoomConfig, setJoined } = useRoomStore();
+  const join = useBoundStore((state) => state.join);
+  const user = useBoundStore((state) => state.user);
+  const connected = useBoundStore((state) => state.connected);
+  const checkoutPlayer = useBoundStore((state) => state.checkoutPlayer);
+  const loadInitialRoom = useBoundStore((state) => state.loadInitialRoom);
 
-  const user = useUserStore((state) => state.user);
+  useEffect(() => {
+    // let unSubscribeBoardStatus: (() => void) | null = null;
 
-  // useEffect(() => {
-  //   if (!user || itAlreadyExecutedSubscribe) return;
-  //   const roomSocketManager = RoomSocketManager.Instance;
+    if (user && connected && !executed) {
+      const roomSocketManager = RoomSocketManager.Instance;
+      roomSocketManager.roomId = room._id;
+      const currentPlayer = userToPlayer(user!, "PLAYER");
+      checkoutPlayer(currentPlayer);
+      join(currentPlayer);
+      loadInitialRoom(room);
+      // unSubscribeBoardStatus = useBoundStore.subscribe((state, prevState) => {
+      //   console.log(
+      //     "prev:",
+      //     state.boardStatus,
+      //     " next:",
+      //     prevState.boardStatus
+      //   );
+      // });
+      executed = true;
+    }
 
-  //   roomSocketManager.init(room, () => {
-  //     setConnected(true);
-  //     roomSocketManager.subscribeOnConnect();
-  //   });
-  //   itAlreadyExecutedSubscribe = true;
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [user]);
-  return <></>;
+    // return () => {
+    //   unSubscribeBoardStatus?.();
+    // };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, connected]);
+  return <>connected: {connected.toString()}</>;
 };

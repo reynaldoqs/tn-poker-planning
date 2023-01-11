@@ -1,23 +1,22 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  HomeNavbar,
+  MainNavbar,
   MainBackground,
   PlayersPanel,
   RoomManager,
+  GameController,
+  GameBoard,
 } from "~/components";
 import { LoadingState } from "~/components/molecules/LoadingState";
-import Lottie from "react-lottie";
-import calabazas from "~/public/assets/Calabazas.json";
 
-import { ROOM_KEY_ID } from "~/constants";
+import { NAV_KEY_ID, ROOM_KEY_ID } from "~/constants";
 import { DocumentRoom } from "~/types";
 import dbConnect from "~/models/Room.helper";
 import { MongoDatabase } from "~/models";
 
 export const getServerSideProps = async ({ params }: any) => {
   await dbConnect();
-  console.log("aqui es el 1");
   const db = MongoDatabase.Instance;
   if (!db) return {};
   const room = await db.getRoom(params.id);
@@ -35,33 +34,19 @@ const Room: React.FC<RoomProps> = ({ room }) => {
     setIsLoading(false);
   };
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: calabazas,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   return (
     <MainBackground>
-      {/* <Lottie
-        options={defaultOptions}
-        height={"100%"}
-        width={"100%"}
-        style={{ position: "absolute", top: 0, left: 0, zIndex: 99999 }}
-        isStopped={false}
-        isPaused={false}
-      /> */}
       <div className="main-board-container">
         <div className="[grid-area:nav]">
-          <HomeNavbar className="z-10 min-h-[100px]" />
+          <MainNavbar
+            className="z-10 min-h-[100px]"
+            initialRoom={room}
+            id="board"
+          />
         </div>
-        <pre>{JSON.stringify(room, null, 2)}</pre>
         <div className="[grid-area:main]">
           <motion.div
-            className="relative grid h-full w-full grid-cols-[240px_1fr] overflow-hidden rounded-tr-pk_lg bg-bgLight"
+            className="relative grid h-full w-full grid-cols-[auto_1fr] overflow-hidden rounded-tr-pk_lg bg-bgLight md:grid-cols-[240px_1fr]"
             layoutId={ROOM_KEY_ID}
             transition={{ duration: 0.5 }}
           >
@@ -77,8 +62,12 @@ const Room: React.FC<RoomProps> = ({ room }) => {
               }}
             >
               <PlayersPanel />
-              <RoomManager room={room} />
             </motion.div>
+            <div>
+              <RoomManager room={room} />
+              <GameController />
+              <GameBoard />
+            </div>
           </motion.div>
         </div>
         <motion.div

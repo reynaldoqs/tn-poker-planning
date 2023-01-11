@@ -1,4 +1,4 @@
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 import print from "consola";
 
 import { extractParticipant, includesParticipant } from "~/utils";
@@ -9,6 +9,7 @@ import {
   SocketData,
 } from "./socketManager.types";
 import { RoomDatabase } from "~/models/models.types";
+import { Player } from "~/types";
 
 export class RoomSocketManager {
   private io: Server<
@@ -53,6 +54,7 @@ export class RoomSocketManager {
           return socket.emit("system_error", error);
         }
       });
+
       socket.on("join_room", async (roomId, player, cb) => {
         try {
           if (!player.playerId) throw "player id not found";
@@ -89,7 +91,7 @@ export class RoomSocketManager {
             if (!room) throw "update participant status failed.";
           }
 
-          const dbPlayer = extractParticipant(room, player.playerId);
+          const dbPlayer: Player = extractParticipant(room, player.playerId);
 
           socket.join(roomId);
           socket.data.activeRoom = roomId;
@@ -123,7 +125,137 @@ export class RoomSocketManager {
           print.success("join_room: completed");
         } catch (error) {
           print.error(error);
-          //TODO: create error types and a way to differentiate system_error and user_error
+          return socket.emit("system_error", error);
+        }
+      });
+
+      socket.on("leave_room", async (player) => {
+        try {
+          if (!socket.data.activeRoom) throw "room not found";
+
+          const updatedRoom = await this.db.removePlayer(
+            socket.data.activeRoom,
+            player
+          );
+          if (!updatedRoom) throw "error removing player.";
+
+          socket.broadcast
+            .to(socket.data.activeRoom)
+            .emit("player_left", player);
+
+          this.io
+            .to(socket.data.activeRoom)
+            .emit("players_updated", updatedRoom.players);
+          socket.data.activeRoom = undefined;
+          socket.data.player = undefined;
+          return;
+        } catch (error) {
+          print.error(error);
+          return socket.emit("system_error", error);
+        }
+      });
+
+      socket.on("update_room_config", async (roomConfig, player) => {
+        try {
+          if (!socket.data.activeRoom) throw "room not found";
+
+          const updatedRoom = await this.db.updateRoomConfig(
+            socket.data.activeRoom,
+            roomConfig,
+            player.playerId
+          );
+          if (!updatedRoom) throw "error updating room configuration";
+
+          return this.io
+            .to(socket.data.activeRoom)
+            .emit("room_config_updated", updatedRoom.roomConfig);
+        } catch (error) {
+          print.error(error);
+          return socket.emit("system_error", error);
+        }
+      });
+
+      socket.on("update_board_status", async (incomingBoardStatus, player) => {
+        try {
+          if (!socket.data.activeRoom) throw "activeRoom not found";
+          // @TODO: find a way to skip getRoom func when board status is not PROGRESS
+          let room = await this.db.getRoom(socket.data.activeRoom);
+          const previousBoardStatus = room.boardStatus;
+
+          if (!room) throw "room not found real room.";
+
+          const isReset =
+            previousBoardStatus === "SHOWING_RESULTS" &&
+            incomingBoardStatus === "VOTING";
+
+          if (isReset) {
+            room = await this.db.resetPlayers(socket.data.activeRoom);
+          }
+
+          const updatedRoom = await this.db.updateBoardStatus(
+            socket.data.activeRoom,
+            incomingBoardStatus,
+            player.playerId
+          );
+
+          if (!updatedRoom) throw "error updating board status.";
+
+          if (isReset) {
+            this.io
+              .to(socket.data.activeRoom)
+              .emit("players_updated", updatedRoom.players);
+          }
+
+          return this.io
+            .to(socket.data.activeRoom)
+            .emit("board_status_updated", updatedRoom.boardStatus);
+        } catch (error) {
+          print.error(error);
+          return socket.emit("system_error", error);
+        }
+      });
+
+      socket.on("update_board_config", async (boardConfig, player) => {
+        try {
+          if (!socket.data.activeRoom) throw "room not found";
+
+          const updatedRoom = await this.db.updateBoardConfig(
+            socket.data.activeRoom,
+            boardConfig,
+            player.playerId
+          );
+          if (!updatedRoom) throw "error updating board configuration";
+
+          return this.io
+            .to(socket.data.activeRoom)
+            .emit("board_config_updated", updatedRoom.boardConfig);
+        } catch (error) {
+          print.error(error);
+          return socket.emit("system_error", error);
+        }
+      });
+
+      socket.on("update_player", async (player) => {
+        try {
+          if (!socket.data.activeRoom) throw "room not found";
+
+          const updatedRoom = await this.db.updatePlayer(
+            socket.data.activeRoom,
+            player
+          );
+          if (!updatedRoom) throw "error updating player";
+
+          // @INFO: Manage localPlayer with local states
+          // if (player.playerId === socket.player?.playerId) {
+          //   socket.player = player;
+          //   return socket.emit(response.localPlayerUpdated, player);
+          // }
+
+          return this.io
+            .to(socket.data.activeRoom)
+            .emit("players_updated", updatedRoom.players);
+        } catch (error) {
+          print.error(error);
           return socket.emit("system_error", error);
         }
       });

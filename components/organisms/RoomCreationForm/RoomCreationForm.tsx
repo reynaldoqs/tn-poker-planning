@@ -17,7 +17,7 @@ import {
 import { LoadingState } from "~/components/molecules/LoadingState";
 import { DECK_CARDS, DECK_OPTIONS, ROOM_KEY_ID } from "~/constants";
 import { createRoom } from "~/services/room";
-import useUserStore from "~/stores/user";
+import { useBoundStore } from "~/stores";
 import { Room, RoomConfig, RoomSchema } from "~/types";
 import { extractErrorMsg } from "~/utils";
 import { RoomCreationFormProps } from "./RoomCreationForm.types";
@@ -37,7 +37,7 @@ const initialValues: Room = {
 };
 
 export const RoomCreationForm: React.FC<RoomCreationFormProps> = (props) => {
-  const currentUser = useUserStore((state) => state.user);
+  const currentUser = useBoundStore((state) => state.user);
   const router = useRouter();
   const initialValuesWithOwner: Room = {
     ...initialValues,
@@ -67,7 +67,6 @@ export const RoomCreationForm: React.FC<RoomCreationFormProps> = (props) => {
       return;
     }
     const newRoom = await createRoom(parsedRoom.data);
-    //router.push(`room/63792c2594b15d6aa4e1feb9`);
 
     router.push(`room/${newRoom._id}`);
   };

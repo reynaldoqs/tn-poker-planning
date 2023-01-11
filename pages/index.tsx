@@ -6,7 +6,7 @@ import {
   RoomCreationForm,
   DropRoot,
   MainBackground,
-  HomeNavbar,
+  MainNavbar,
   Footer,
 } from "~/components";
 
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   return (
     <MainBackground>
       <div className="flex h-full grid-cols-1 grid-rows-[112px_1fr_52px] flex-col gap-10 overflow-y-auto md:grid md:gap-0 md:overflow-hidden">
-        <HomeNavbar className="z-10 min-h-[100px]" />
+        <MainNavbar className="z-10 min-h-[100px]" id="home" />
         <main className="container z-10 mx-auto flex flex-1 flex-col gap-10 md:mt-24 md:flex-row md:gap-12 lg:gap-28">
           <section className="h-fit w-full px-4 md:w-[464px] md:px-0">
             <RoomCreationForm />

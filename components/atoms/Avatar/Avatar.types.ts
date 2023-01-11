@@ -1,5 +1,5 @@
 export type AvatarProps = {
-  src: string;
+  src?: string;
   alt: string;
   className?: string;
   onClick?: () => void;

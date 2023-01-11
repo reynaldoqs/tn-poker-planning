@@ -4,3 +4,4 @@ export * from "./Footer";
 export * from "./SocialAuthButton";
 export * from "./DropdownMenu";
 export * from "./IssuesList";
+export * from "./PlayerItem";

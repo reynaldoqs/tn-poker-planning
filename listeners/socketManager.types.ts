@@ -2,20 +2,17 @@ import { BoardConfig, BoardStatus, Player, RoomConfig } from "~/types";
 
 export type ServerToClientEvents = {
   room_config_updated: (roomConfig: RoomConfig) => void;
-  board_config_updated: () => void;
-  board_status_updated: () => void;
+  board_config_updated: (boardConfig: BoardConfig) => void;
+  board_status_updated: (boardStatus: BoardStatus) => void;
   players_updated: (players: Player[]) => void;
-  player_joined: (player: Player, cb?: () => void) => void;
-  player_leaved: () => void;
+  player_joined: (player: Player) => void;
+  player_left: (player: Player) => void;
   player_disconnected: (player: Player, reason: string) => void;
   player_reconnected: (player: Player) => void;
   // system messages
-  success_connection: () => void;
-  success: () => void;
+  system_success: (message: string) => void;
   system_error: (error: unknown) => void;
-  user_error: () => void;
-  info: () => void;
-  disconnect: () => void;
+  system_info: (information: string) => void;
 };
 
 export type ClientToServerEvents = {

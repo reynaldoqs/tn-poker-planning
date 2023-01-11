@@ -4,18 +4,20 @@ import { useSession } from "next-auth/react";
 import * as localStorageService from "~/services/storage";
 import { LOCAL_USER_KEY } from "~/constants";
 import { User, UserSchema } from "~/types";
-import useUserStore from "~/stores/user";
+import { useBoundStore } from "~/stores";
 import { Avatar, Button, Modal } from "~/components/atoms";
 import { DropdownMenu } from "~/components/molecules";
 
 import { AuthForm } from "../AuthForm";
 
-export const UserManager: React.FC = () => {
+export const UserManager: React.FC<{ isRoomBoard: boolean }> = ({
+  isRoomBoard,
+}) => {
   const { data: session, status } = useSession();
-  const setUser = useUserStore((state) => state.setUser);
-  const signIn = useUserStore((state) => state.signIn);
-  const signOut = useUserStore((state) => state.signOut);
-  const currentUser = useUserStore((state) => state.user);
+  const setUser = useBoundStore((state) => state.setUser);
+  const signIn = useBoundStore((state) => state.signIn);
+  const signOut = useBoundStore((state) => state.signOut);
+  const currentUser = useBoundStore((state) => state.user);
 
   const [showAuthModal, setShowAuthModal] = useState(false);
 
@@ -65,6 +67,7 @@ export const UserManager: React.FC = () => {
             setShowAuthModal(false);
           }}
         />
+        v
       </Modal>
     </>
   );
