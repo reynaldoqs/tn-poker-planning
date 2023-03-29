@@ -1,4 +1,4 @@
-import * as LabelPrimitive from "@radix-ui/react-label";
+import * as LabelPrimitive from '@radix-ui/react-label';
 
 export const Label: React.FC<LabelPrimitive.LabelProps> = ({
   className,

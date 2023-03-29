@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 /* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600;900&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;900&display=swap');
 
 body {
   color: #d6d3d3;
   /* font-family: "Inter", sans-serif; */
-  font-family: "Urbanist", sans-serif;
+  font-family: 'Urbanist', sans-serif;
   font-weight: 400;
   background-color: #1c1e1f;
 }
@@ -24,19 +24,16 @@ body {
   grid-template-columns: 1fr 260px;
   grid-template-rows: 112px auto;
   grid-template-areas:
-    "nav nav"
-    "main sidebar";
-}
-.audi-test {
-  /* mix-blend-mode: color-burn; */
-  background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.2) 100%
-    ),
-    #e31345;
+    'nav nav'
+    'main sidebar';
 }
 
-.element {
-  margin-top: 24px;
+.game-table-container {
+  display: grid;
+  grid-template-columns: 86px 1fr 86px;
+  grid-template-rows: 110px 1fr 110px;
+  grid-template-areas:
+    'left top right'
+    'left middle right'
+    'left bottom right';
 }

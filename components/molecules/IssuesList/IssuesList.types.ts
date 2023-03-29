@@ -1,6 +1,6 @@
-import { RoomConfig } from "~/types";
+import { RoomConfig } from '~/types';
 
 export type IssuesListProps = {
   roomConfig: RoomConfig;
-  onIssuesUpdate?: (issues: RoomConfig["issues"]) => void;
+  onIssuesUpdate?: (issues: RoomConfig['issues']) => void;
 };

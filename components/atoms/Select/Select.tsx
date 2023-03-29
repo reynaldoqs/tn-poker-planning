@@ -1,8 +1,8 @@
-import * as SelectPrimitive from "@radix-ui/react-select";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import * as SelectPrimitive from '@radix-ui/react-select';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-import { SelectProps } from "./Select.types";
+import { SelectProps } from './Select.types';
 
 export const Select: React.FC<SelectProps> = ({
   options = [],

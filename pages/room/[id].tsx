@@ -1,19 +1,18 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import {
   MainNavbar,
   MainBackground,
   PlayersPanel,
-  RoomManager,
-  GameController,
   GameBoard,
-} from "~/components";
-import { LoadingState } from "~/components/molecules/LoadingState";
+} from '~/components';
+import { LoadingState } from '~/components/molecules/LoadingState';
 
-import { NAV_KEY_ID, ROOM_KEY_ID } from "~/constants";
-import { DocumentRoom } from "~/types";
-import dbConnect from "~/models/Room.helper";
-import { MongoDatabase } from "~/models";
+import { NAV_KEY_ID, ROOM_KEY_ID } from '~/constants';
+import { DocumentRoom } from '~/types';
+import dbConnect from '~/models/Room.helper';
+import { MongoDatabase } from '~/models';
+import { withInitialData } from '~/HOC';
 
 export const getServerSideProps = async ({ params }: any) => {
   await dbConnect();
@@ -22,6 +21,8 @@ export const getServerSideProps = async ({ params }: any) => {
   const room = await db.getRoom(params.id);
   return { props: { room: JSON.parse(JSON.stringify(room)) } };
 };
+
+const BackGroundWithLoadInitialData = withInitialData(MainBackground);
 
 type RoomProps = {
   readonly room: DocumentRoom;
@@ -35,7 +36,7 @@ const Room: React.FC<RoomProps> = ({ room }) => {
   };
 
   return (
-    <MainBackground>
+    <BackGroundWithLoadInitialData room={room}>
       <div className="main-board-container">
         <div className="[grid-area:nav]">
           <MainNavbar
@@ -63,9 +64,7 @@ const Room: React.FC<RoomProps> = ({ room }) => {
             >
               <PlayersPanel />
             </motion.div>
-            <div>
-              <RoomManager room={room} />
-              <GameController />
+            <div className="h-full w-full">
               <GameBoard />
             </div>
           </motion.div>
@@ -78,7 +77,7 @@ const Room: React.FC<RoomProps> = ({ room }) => {
           className="[grid-rea:sidebar]"
         ></motion.div>
       </div>
-    </MainBackground>
+    </BackGroundWithLoadInitialData>
   );
 };
 

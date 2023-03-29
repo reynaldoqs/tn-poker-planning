@@ -1,1 +1,1 @@
-export * from "./room.client";
+export * from './room.client';

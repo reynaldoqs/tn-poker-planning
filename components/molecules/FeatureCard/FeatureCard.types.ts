@@ -1,4 +1,4 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export type FeatureCardProps = React.HTMLAttributes<HTMLDivElement> & {
   icon: IconDefinition;

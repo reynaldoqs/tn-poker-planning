@@ -1,5 +1,5 @@
-import type { DropdownMenuProps as BaseProps } from "@radix-ui/react-dropdown-menu";
-import { Player, User } from "~/types";
+import type { DropdownMenuProps as BaseProps } from '@radix-ui/react-dropdown-menu';
+import { Player, User } from '~/types';
 export type DropdownMenuProps = BaseProps & {
   trigger: React.ReactElement;
   user: User | Player;

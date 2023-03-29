@@ -1,15 +1,15 @@
-import { Server } from "socket.io";
-import print from "consola";
+import { Server } from 'socket.io';
+import print from 'consola';
 
-import { extractParticipant, includesParticipant } from "~/utils";
+import { extractParticipant, includesParticipant } from '~/utils';
 import {
   ClientToServerEvents,
   InterServerEvents,
   ServerToClientEvents,
   SocketData,
-} from "./socketManager.types";
-import { RoomDatabase } from "~/models/models.types";
-import { Player } from "~/types";
+} from './socketManager.types';
+import { RoomDatabase } from '~/models/models.types';
+import { Player } from '~/types';
 
 export class RoomSocketManager {
   private io: Server<
@@ -25,42 +25,42 @@ export class RoomSocketManager {
   }
 
   public subscribeToClientRequests() {
-    this.io.on("connection", (socket) => {
-      this.io.on("disconnect", async (reason) => {
+    this.io.on('connection', (socket) => {
+      this.io.on('disconnect', async (reason) => {
         try {
           const activeRoomId = socket.data.activeRoom;
           const socketPlayer = socket.data.player;
 
           if (!activeRoomId || !socketPlayer)
-            throw "playerId or roomId not found";
+            throw 'playerId or roomId not found';
 
           // when disconnecting after leave room it throw an error (sync error)
           const updatedRoom = await this.db.updatePlayerStatus(
             activeRoomId,
             socketPlayer.playerId,
-            "DISCONNECTED"
+            'DISCONNECTED'
           );
           if (!updatedRoom)
             throw `error updating player::[${socketPlayer.playerId}]:[${socketPlayer.name}] status to DISCONNECTED`;
 
           socket.broadcast
             .to(activeRoomId)
-            .emit("player_disconnected", socketPlayer, reason);
+            .emit('player_disconnected', socketPlayer, reason);
 
-          this.io.to(activeRoomId).emit("players_updated", updatedRoom.players);
-          print.success("player_disconnected: completed");
+          this.io.to(activeRoomId).emit('players_updated', updatedRoom.players);
+          print.success('player_disconnected: completed');
         } catch (error) {
           print.error(error);
-          return socket.emit("system_error", error);
+          return socket.emit('system_error', error);
         }
       });
 
-      socket.on("join_room", async (roomId, player, cb) => {
+      socket.on('join_room', async (roomId, player, cb) => {
         try {
-          if (!player.playerId) throw "player id not found";
+          if (!player.playerId) throw 'player id not found';
           let isReconnection = false;
           let room = await this.db.getRoom(roomId);
-          if (!room) throw "room not found.";
+          if (!room) throw 'room not found.';
 
           const hasOwner = room.roomConfig?.owner?.providerId;
           if (!hasOwner) {
@@ -79,16 +79,16 @@ export class RoomSocketManager {
           // if there is a participant with id, its a rejoin
           if (!includesParticipant(room, player)) {
             room = await this.db.pushPlayer(roomId, player);
-            if (!room) throw "insert participant failed.";
+            if (!room) throw 'insert participant failed.';
           } else {
             // reconnection
             room = await this.db.updatePlayerStatus(
               roomId,
               player.playerId,
-              "CONNECTED"
+              'CONNECTED'
             );
             isReconnection = true;
-            if (!room) throw "update participant status failed.";
+            if (!room) throw 'update participant status failed.';
           }
 
           const dbPlayer: Player = extractParticipant(room, player.playerId);
@@ -104,89 +104,89 @@ export class RoomSocketManager {
           if (isReconnection) {
             socket.broadcast
               .to(socket.data.activeRoom)
-              .emit("player_reconnected", dbPlayer);
+              .emit('player_reconnected', dbPlayer);
           } else {
             socket.broadcast
               .to(socket.data.activeRoom)
-              .emit("player_joined", dbPlayer);
+              .emit('player_joined', dbPlayer);
           }
 
           if (!hasOwner) {
             this.io
               .to(socket.data.activeRoom)
-              .emit("room_config_updated", room.roomConfig);
+              .emit('room_config_updated', room.roomConfig);
           }
 
           this.io
             .to(socket.data.activeRoom)
-            .emit("players_updated", room.players);
+            .emit('players_updated', room.players);
 
           cb?.();
-          print.success("join_room: completed");
+          print.success('join_room: completed');
         } catch (error) {
           print.error(error);
-          return socket.emit("system_error", error);
+          return socket.emit('system_error', error);
         }
       });
 
-      socket.on("leave_room", async (player) => {
+      socket.on('leave_room', async (player) => {
         try {
-          if (!socket.data.activeRoom) throw "room not found";
+          if (!socket.data.activeRoom) throw 'room not found';
 
           const updatedRoom = await this.db.removePlayer(
             socket.data.activeRoom,
             player
           );
-          if (!updatedRoom) throw "error removing player.";
+          if (!updatedRoom) throw 'error removing player.';
 
           socket.broadcast
             .to(socket.data.activeRoom)
-            .emit("player_left", player);
+            .emit('player_left', player);
 
           this.io
             .to(socket.data.activeRoom)
-            .emit("players_updated", updatedRoom.players);
+            .emit('players_updated', updatedRoom.players);
           socket.data.activeRoom = undefined;
           socket.data.player = undefined;
           return;
         } catch (error) {
           print.error(error);
-          return socket.emit("system_error", error);
+          return socket.emit('system_error', error);
         }
       });
 
-      socket.on("update_room_config", async (roomConfig, player) => {
+      socket.on('update_room_config', async (roomConfig, player) => {
         try {
-          if (!socket.data.activeRoom) throw "room not found";
+          if (!socket.data.activeRoom) throw 'room not found';
 
           const updatedRoom = await this.db.updateRoomConfig(
             socket.data.activeRoom,
             roomConfig,
             player.playerId
           );
-          if (!updatedRoom) throw "error updating room configuration";
+          if (!updatedRoom) throw 'error updating room configuration';
 
           return this.io
             .to(socket.data.activeRoom)
-            .emit("room_config_updated", updatedRoom.roomConfig);
+            .emit('room_config_updated', updatedRoom.roomConfig);
         } catch (error) {
           print.error(error);
-          return socket.emit("system_error", error);
+          return socket.emit('system_error', error);
         }
       });
 
-      socket.on("update_board_status", async (incomingBoardStatus, player) => {
+      socket.on('update_board_status', async (incomingBoardStatus, player) => {
         try {
-          if (!socket.data.activeRoom) throw "activeRoom not found";
+          if (!socket.data.activeRoom) throw 'activeRoom not found';
           // @TODO: find a way to skip getRoom func when board status is not PROGRESS
           let room = await this.db.getRoom(socket.data.activeRoom);
           const previousBoardStatus = room.boardStatus;
 
-          if (!room) throw "room not found real room.";
+          if (!room) throw 'room not found real room.';
 
           const isReset =
-            previousBoardStatus === "SHOWING_RESULTS" &&
-            incomingBoardStatus === "VOTING";
+            previousBoardStatus === 'SHOWING_RESULTS' &&
+            incomingBoardStatus === 'VOTING';
 
           if (isReset) {
             room = await this.db.resetPlayers(socket.data.activeRoom);
@@ -198,52 +198,69 @@ export class RoomSocketManager {
             player.playerId
           );
 
-          if (!updatedRoom) throw "error updating board status.";
+          if (!updatedRoom) throw 'error updating board status.';
 
           if (isReset) {
             this.io
               .to(socket.data.activeRoom)
-              .emit("players_updated", updatedRoom.players);
+              .emit('players_updated', updatedRoom.players);
           }
 
           return this.io
             .to(socket.data.activeRoom)
-            .emit("board_status_updated", updatedRoom.boardStatus);
+            .emit('board_status_updated', updatedRoom.boardStatus);
         } catch (error) {
           print.error(error);
-          return socket.emit("system_error", error);
+          return socket.emit('system_error', error);
         }
       });
 
-      socket.on("update_board_config", async (boardConfig, player) => {
+      socket.on('update_board_config', async (boardConfig, player) => {
         try {
-          if (!socket.data.activeRoom) throw "room not found";
+          if (!socket.data.activeRoom) throw 'room not found';
 
           const updatedRoom = await this.db.updateBoardConfig(
             socket.data.activeRoom,
             boardConfig,
             player.playerId
           );
-          if (!updatedRoom) throw "error updating board configuration";
+          if (!updatedRoom) throw 'error updating board configuration';
 
           return this.io
             .to(socket.data.activeRoom)
-            .emit("board_config_updated", updatedRoom.boardConfig);
+            .emit('board_config_updated', updatedRoom.boardConfig);
         } catch (error) {
           print.error(error);
-          return socket.emit("system_error", error);
+          return socket.emit('system_error', error);
         }
       });
 
-      socket.on("update_player", async (player) => {
+      socket.on('update_player', async (incomingPlayer) => {
+        // use partial
+        // if socket player is admin he can edit other players, and if not it can edit it self only
         try {
-          if (!socket.data.activeRoom) throw "room not found";
+          if (!socket.data.activeRoom) throw 'room not found';
+          if (!socket.data.player) throw 'current player not found';
+          const currentPlayer = socket.data.player;
+
+          const isSelfUpdate =
+            currentPlayer.playerId === incomingPlayer.playerId ||
+            !incomingPlayer.playerId;
+
+          let playerToUpdate: Player;
+
+          if (isSelfUpdate) {
+            playerToUpdate = { ...currentPlayer, ...incomingPlayer };
+          } else {
+            //TODO: check if playerId is part of admins
+            playerToUpdate = incomingPlayer as Player; //TODO: use PlayerSchema to validate playerId and other fields
+          }
 
           const updatedRoom = await this.db.updatePlayer(
             socket.data.activeRoom,
-            player
+            playerToUpdate
           );
-          if (!updatedRoom) throw "error updating player";
+          if (!updatedRoom) throw 'error updating player';
 
           // @INFO: Manage localPlayer with local states
           // if (player.playerId === socket.player?.playerId) {
@@ -253,10 +270,10 @@ export class RoomSocketManager {
 
           return this.io
             .to(socket.data.activeRoom)
-            .emit("players_updated", updatedRoom.players);
+            .emit('players_updated', updatedRoom.players);
         } catch (error) {
           print.error(error);
-          return socket.emit("system_error", error);
+          return socket.emit('system_error', error);
         }
       });
     });

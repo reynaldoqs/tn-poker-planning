@@ -1,4 +1,4 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 
 export type InputProps = React.HTMLAttributes<HTMLInputElement> & {

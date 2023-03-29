@@ -1,8 +1,8 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
-import { ZodError } from "zod";
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { FormEvent, useEffect, useState } from 'react';
+import { ZodError } from 'zod';
 
 import {
   Button,
@@ -13,26 +13,26 @@ import {
   Modal,
   Select,
   ToggleGroup,
-} from "~/components";
-import { LoadingState } from "~/components/molecules/LoadingState";
-import { DECK_CARDS, DECK_OPTIONS, ROOM_KEY_ID } from "~/constants";
-import { createRoom } from "~/services/room";
-import { useBoundStore } from "~/stores";
-import { Room, RoomConfig, RoomSchema } from "~/types";
-import { extractErrorMsg } from "~/utils";
-import { RoomCreationFormProps } from "./RoomCreationForm.types";
+} from '~/components';
+import { LoadingState } from '~/components/molecules/LoadingState';
+import { DECK_CARDS, DECK_OPTIONS, ROOM_KEY_ID } from '~/constants';
+import { createRoom } from '~/services/room';
+import { useBoundStore } from '~/stores';
+import { Room, RoomConfig, RoomSchema } from '~/types';
+import { extractErrorMsg } from '~/utils';
+import { RoomCreationFormProps } from './RoomCreationForm.types';
 
 const initialValues: Room = {
   roomConfig: {
-    title: "",
-    whoCanManage: "OWNER",
+    title: '',
+    whoCanManage: 'OWNER',
     authentication: { required: false },
   },
   boardConfig: {
-    voteType: "STRING",
+    voteType: 'STRING',
     voteValues: DECK_CARDS.fibonacci.values,
   },
-  boardStatus: "INIT",
+  boardStatus: 'INIT',
   players: [],
 };
 
@@ -126,8 +126,8 @@ export const RoomCreationForm: React.FC<RoomCreationFormProps> = (props) => {
           <Label htmlFor="select_management">Who can manage game?</Label>
           <ToggleGroup
             options={[
-              { value: "OWNER", label: "Owner" },
-              { value: "ANYONE", label: "All players" },
+              { value: 'OWNER', label: 'Owner' },
+              { value: 'ANYONE', label: 'All players' },
             ]}
             value={roomForm.roomConfig.whoCanManage}
             onValueChange={(value) => {
@@ -136,7 +136,7 @@ export const RoomCreationForm: React.FC<RoomCreationFormProps> = (props) => {
                 ...roomForm,
                 roomConfig: {
                   ...roomForm.roomConfig,
-                  whoCanManage: value as RoomConfig["whoCanManage"],
+                  whoCanManage: value as RoomConfig['whoCanManage'],
                 },
               });
             }}

@@ -1,16 +1,16 @@
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRightFromBracket,
   faPersonThroughWindow,
   faToggleOff,
   faToggleOn,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
-import { MenuItem } from "~/components/atoms";
-import { extractProviderIcon, isPlayer } from "~/utils";
+import { MenuItem } from '~/components/atoms';
+import { extractProviderIcon, isPlayer } from '~/utils';
 
-import { DropdownMenuProps } from "./DropdownMenu.types";
+import { DropdownMenuProps } from './DropdownMenu.types';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   trigger,
@@ -26,7 +26,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   let mainMenu: React.ReactNode;
 
   if (isPlayer(user)) {
-    const isObserver = user.type === "OBSERVER";
+    const isObserver = user.type === 'OBSERVER';
     displayName = user.name;
     subtitle = user.type.toUpperCase();
     mainMenu = (

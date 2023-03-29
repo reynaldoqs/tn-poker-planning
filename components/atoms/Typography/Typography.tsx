@@ -1,13 +1,13 @@
-import { createElement } from "react";
+import { createElement } from 'react';
 
-import { TypographyProps, typographyVariants } from "./Typography.types";
+import { TypographyProps, typographyVariants } from './Typography.types';
 
 //TODO: Remove this implementation
 /**
  * @deprecated Typography component will be removed
  */
 export const Typography: React.FC<TypographyProps> = ({
-  variant = "body1",
+  variant = 'body1',
   as,
   className,
   children,

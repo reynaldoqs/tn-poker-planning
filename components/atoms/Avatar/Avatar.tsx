@@ -1,13 +1,13 @@
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import * as AvatarPrimitive from '@radix-ui/react-avatar';
 
-import { AvatarProps } from "./Avatar.types";
+import { AvatarProps } from './Avatar.types';
 
 const getAltInitials = (alt: string) => {
-  if (!alt) return "NA";
+  if (!alt) return 'NA';
   return alt
-    .split(" ")
+    .split(' ')
     .map((n) => n[0].toUpperCase())
-    .join("");
+    .join('');
 };
 
 export const Avatar: React.FC<AvatarProps> = ({

@@ -1,8 +1,8 @@
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-import type { ModalProps } from "./Modal.types";
+import type { ModalProps } from './Modal.types';
 
 export const Modal: React.FC<ModalProps> = ({
   title,

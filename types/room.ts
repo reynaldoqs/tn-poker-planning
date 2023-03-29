@@ -1,5 +1,5 @@
-import { z } from "zod";
-import type { Document } from "mongoose";
+import { z } from 'zod';
+import type { Document } from 'mongoose';
 
 import {
   ISSUE_STATUS,
@@ -10,8 +10,8 @@ import {
   PLAYER_STATUS,
   AVAILABLE_REACTIONS,
   PLAYER_TYPES,
-} from "~/constants";
-import { ValuesOf } from "./misc";
+} from '~/constants';
+import { ValuesOf } from './misc';
 
 export const RoomSchema = z.object({
   roomConfig: z.object({
@@ -63,15 +63,15 @@ export type Room = z.infer<typeof RoomSchema>;
 
 export type DocumentRoom = Document & Room;
 
-export type RoomConfig = Room["roomConfig"];
+export type RoomConfig = Room['roomConfig'];
 
-export type RoomIssue = Exclude<RoomConfig["issues"], undefined>[number];
+export type RoomIssue = Exclude<RoomConfig['issues'], undefined>[number];
 
-export type BoardConfig = Room["boardConfig"];
+export type BoardConfig = Room['boardConfig'];
 
-export type BoardStatus = Room["boardStatus"];
+export type BoardStatus = Room['boardStatus'];
 
 // To avoid spam db/server with countdown room state
-export type LocalBoardStatus = Room["boardStatus"] | "COUNTING_DOWN";
+export type LocalBoardStatus = Room['boardStatus'] | 'COUNTING_DOWN';
 
-export type Player = ValuesOf<Room["players"]>;
+export type Player = ValuesOf<Room['players']>;

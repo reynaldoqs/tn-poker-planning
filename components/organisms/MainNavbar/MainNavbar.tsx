@@ -1,10 +1,10 @@
-import { Brand } from "~/components/molecules";
-import { useBoundStore } from "~/stores";
+import { Brand } from '~/components/molecules';
+import { useBoundStore } from '~/stores';
 
-import { UserManager } from "../UserManager";
-import { MainNavbarProps } from "./MainNavbar.types";
-import { motion } from "framer-motion";
-import { NAV_KEY_ID } from "~/constants";
+import { UserManager } from '../UserManager';
+import { MainNavbarProps } from './MainNavbar.types';
+import { motion } from 'framer-motion';
+import { NAV_KEY_ID } from '~/constants';
 
 export const MainNavbar: React.FC<MainNavbarProps> = ({
   initialRoom,
@@ -18,7 +18,7 @@ export const MainNavbar: React.FC<MainNavbarProps> = ({
   return (
     <motion.nav
       className={`mx-auto h-full max-h-28 w-full px-4 ${
-        isRoomBoard ? "" : "container"
+        isRoomBoard ? '' : 'container'
       } ${className}`}
       layoutId={NAV_KEY_ID}
       transition={{ duration: 0.5 }}

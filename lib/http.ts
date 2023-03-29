@@ -3,19 +3,19 @@ export const cruder = (hostname: string) => (resource: string) => {
   return {
     read: async <T = unknown>(path?: string) => {
       const response = await fetch(`${url}${path ? `/${path}` : null}`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.json() as T;
     },
     create: async <I = unknown, R = I>(data: I) => {
       const response = await fetch(url, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.json() as R;

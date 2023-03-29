@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { AUTH_PROVIDERS } from "~/constants";
+import { AUTH_PROVIDERS } from '~/constants';
 
 // export const StreetSchema = z.object({
 //   location: z.string(),
@@ -27,4 +27,4 @@ export const UserSchema = z.object({
 
 export type User = z.infer<typeof UserSchema>;
 
-export type NextJsAuthProvider = Omit<typeof AUTH_PROVIDERS, "browser">;
+export type NextJsAuthProvider = Omit<typeof AUTH_PROVIDERS, 'browser'>;

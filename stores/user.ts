@@ -1,15 +1,14 @@
-import { StateCreator } from "zustand";
-import { devtools } from "zustand/middleware";
+import { StateCreator } from 'zustand';
 import {
   signIn as nextAuthSignIn,
   signOut as nextAuthSignOut,
-} from "next-auth/react";
+} from 'next-auth/react';
 
-import { AUTH_PROVIDERS, LOCAL_USER_KEY } from "~/constants";
-import { User, UserSchema } from "~/types";
-import { generateLocalUser } from "~/services/browserAuth";
-import * as localStorageService from "~/services/storage";
-import { RoomSlice, UserSlice } from "./stores.types";
+import { AUTH_PROVIDERS, LOCAL_USER_KEY } from '~/constants';
+import { User, UserSchema } from '~/types';
+import { generateLocalUser } from '~/services/browserAuth';
+import * as localStorageService from '~/services/storage';
+import { RoomSlice, UserSlice } from './stores.types';
 
 const onBrowserAuth = async (name: string) => {
   const localUser = await generateLocalUser(name);
@@ -19,7 +18,7 @@ const onBrowserAuth = async (name: string) => {
 
 const createUserSlice: StateCreator<
   UserSlice & RoomSlice,
-  [["zustand/devtools", never]],
+  [['zustand/devtools', never]],
   [],
   UserSlice
 > = (set, get) => ({
@@ -28,7 +27,6 @@ const createUserSlice: StateCreator<
     if (provider === AUTH_PROVIDERS.browser && name) {
       const localUser = await onBrowserAuth(name);
       localStorageService.setItem(localUser, LOCAL_USER_KEY);
-      console.log("vamos a logerar al user AYDIUAMNEWR");
       set({ user: localUser });
       return;
     }

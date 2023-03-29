@@ -1,14 +1,14 @@
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
-import { AUTH_PROVIDERS } from "~/constants";
-import type { User } from "~/types";
+import { AUTH_PROVIDERS } from '~/constants';
+import type { User } from '~/types';
 
-const AVATAR_PROVIDER = "https://avatars.dicebear.com/api/open-peeps/";
+const AVATAR_PROVIDER = 'https://avatars.dicebear.com/api/open-peeps/';
 
-const fpPromise = typeof window === "undefined" ? null : FingerprintJS.load();
+const fpPromise = typeof window === 'undefined' ? null : FingerprintJS.load();
 
 const getBrowserId = async (): Promise<string> => {
-  if (!fpPromise) return "";
+  if (!fpPromise) return '';
   const fp = await fpPromise;
   const result = await fp.get();
   const providerId = result.visitorId;

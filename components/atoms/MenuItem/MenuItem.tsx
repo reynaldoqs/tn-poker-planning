@@ -1,4 +1,4 @@
-import { MenuItemProps } from "./MenuItem.types";
+import { MenuItemProps } from './MenuItem.types';
 
 export const MenuItem: React.FC<MenuItemProps> = ({
   children,

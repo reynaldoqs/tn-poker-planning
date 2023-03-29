@@ -1,4 +1,4 @@
-import { BoardConfig, BoardStatus, Player, Room, RoomConfig } from "~/types";
+import { BoardConfig, BoardStatus, Player, Room, RoomConfig } from '~/types';
 
 export interface RoomDatabase {
   createRoom: (room: Room) => Promise<Room>;
@@ -7,7 +7,7 @@ export interface RoomDatabase {
   updatePlayerStatus: (
     roomId: string,
     playerId: string,
-    status: Room["players"][number]["status"]
+    status: Room['players'][number]['status']
   ) => Promise<Room>;
   pushPlayer: (roomId: string, player: Player) => Promise<Room>;
   removePlayer: (roomId: string, player: Player) => Promise<Room>;

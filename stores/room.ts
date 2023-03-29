@@ -1,15 +1,15 @@
-import { StateCreator } from "zustand";
-import print from "consola";
+import { StateCreator } from 'zustand';
+import print from 'consola';
 
-import { RoomSocketManager } from "~/listeners/socketManager.client";
-import { RoomSlice, UserSlice } from "./stores.types";
-import { BoardConfig, BoardStatus, Player, RoomConfig } from "~/types";
-import { BOARD_STATUS, COUNTDOWN_IN_SECONDS } from "~/constants";
+import { RoomSocketManager } from '~/listeners/socketManager.client';
+import { RoomSlice, UserSlice } from './stores.types';
+import { BoardConfig, BoardStatus, Player, RoomConfig } from '~/types';
+import { BOARD_STATUS, COUNTDOWN_IN_SECONDS } from '~/constants';
 
 // TODO: find a way to don't init when the route is home
 const createRoomSlice: StateCreator<
   RoomSlice & UserSlice,
-  [["zustand/devtools", never]],
+  [['zustand/devtools', never]],
   [],
   RoomSlice
 > = (set, get): RoomSlice => {
@@ -47,8 +47,8 @@ const createRoomSlice: StateCreator<
 
     roomSocketManager.subscribeBoardStatusUpdated((boardStatus) => {
       const prevBoardState = get().localBoardStatus;
-      if (prevBoardState === "VOTING" && boardStatus === "SHOWING_RESULTS") {
-        set((state) => ({ ...state, localBoardStatus: "COUNTING_DOWN" }));
+      if (prevBoardState === 'VOTING' && boardStatus === 'SHOWING_RESULTS') {
+        set((state) => ({ ...state, localBoardStatus: 'COUNTING_DOWN' }));
         setTimeout(() => {
           set((state) => ({ ...state, localBoardStatus: boardStatus }));
         }, COUNTDOWN_IN_SECONDS * 1000);
@@ -86,12 +86,22 @@ const createRoomSlice: StateCreator<
     localBoardStatus: null,
     players: [],
     currentPlayer: null,
+    // currentPlayerSlotTarget: { x: 0, y: 0 },
     connected: false,
     joined: false,
-    checkoutPlayer(player: Player) {
+    checkoutPlayer(player) {
       set((state) => ({ ...state, currentPlayer: player }));
     },
-    updatePlayer(data: Partial<Player>) {},
+    updatePlayer(player) {
+      roomSocketManager.updatePlayer(player);
+    },
+    updateVote(vote) {
+      set((state) => ({
+        ...state,
+        currentPlayer: { ...state.currentPlayer, voteValue: vote } as Player,
+      }));
+      roomSocketManager.updatePlayer({ voteValue: vote });
+    },
     join(player) {
       roomSocketManager.join(player);
     },
@@ -113,6 +123,12 @@ const createRoomSlice: StateCreator<
       const nextStatus = BOARD_STATUS[nextStatusIndex];
       roomSocketManager.updateBoardStatus(nextStatus, get().currentPlayer!); //TODO: REMOVE THIS AND USE ROOM SOCKET PLAYER IN BE
     },
+    // updateCurrentPlayerSlotTarget(position) {
+    //   set((state) => ({
+    //     ...state,
+    //     currentPlayerSlotTarget: position,
+    //   }));
+    // },
     // setConnected: (connected: boolean) =>
     //   set((state: any) => ({ ...state, connected })),
   };

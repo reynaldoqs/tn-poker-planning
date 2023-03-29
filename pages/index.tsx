@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
+import type { NextPage } from 'next';
 
-import Head from "next/head";
+import Head from 'next/head';
 
 import {
   RoomCreationForm,
@@ -8,7 +8,7 @@ import {
   MainBackground,
   MainNavbar,
   Footer,
-} from "~/components";
+} from '~/components';
 
 const Home: NextPage = () => {
   return (

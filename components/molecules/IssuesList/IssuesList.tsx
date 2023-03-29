@@ -1,27 +1,27 @@
-import { useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRef, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { Button, Input, IssueItem } from "~/components/atoms";
+import { Button, Input, IssueItem } from '~/components/atoms';
 
-import { IssuesListProps } from "./IssuesList.types";
-import { RoomConfig } from "~/types";
+import { IssuesListProps } from './IssuesList.types';
+import { RoomConfig } from '~/types';
 
 export const IssuesList: React.FC<IssuesListProps> = ({
   roomConfig: { issues, title },
   onIssuesUpdate,
 }) => {
-  const [showInput, setShowInput] = useState(() => !Boolean(issues?.length));
+  const [showInput, setShowInput] = useState(!issues?.length);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSaveHandler = () => {
     const issueName = inputRef.current?.value;
     if (issueName) {
-      const newIssue: Exclude<RoomConfig["issues"], undefined>[number] = {
+      const newIssue: Exclude<RoomConfig['issues'], undefined>[number] = {
         name: issueName,
-        status: "TODO",
+        status: 'TODO',
       };
-      const updatedIssues: RoomConfig["issues"] = [...(issues || []), newIssue];
+      const updatedIssues: RoomConfig['issues'] = [...(issues || []), newIssue];
       onIssuesUpdate?.(updatedIssues);
       setShowInput(false);
     }

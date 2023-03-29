@@ -1,7 +1,7 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
 
 const options: NextAuthOptions = {
   providers: [

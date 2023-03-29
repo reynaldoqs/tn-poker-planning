@@ -1,4 +1,4 @@
-import { BoardConfig, BoardStatus, Player, RoomConfig } from "~/types";
+import { BoardConfig, BoardStatus, Player, RoomConfig } from '~/types';
 
 export type ServerToClientEvents = {
   room_config_updated: (roomConfig: RoomConfig) => void;
@@ -21,7 +21,7 @@ export type ClientToServerEvents = {
   update_room_config: (roomConfig: RoomConfig, player: Player) => void;
   update_board_config: (boardConfig: BoardConfig, player: Player) => void;
   update_board_status: (boardStatus: BoardStatus, player: Player) => void;
-  update_player: (player: Player) => void;
+  update_player: (player: Partial<Player>) => void;
 };
 
 export type InterServerEvents = {

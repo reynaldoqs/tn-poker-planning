@@ -1,1 +1,1 @@
-export * from "./UserManager";
+export * from './UserManager';

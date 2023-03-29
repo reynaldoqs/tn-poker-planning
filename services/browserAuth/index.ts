@@ -1,1 +1,1 @@
-export * from "./browserAuth";
+export * from './browserAuth';

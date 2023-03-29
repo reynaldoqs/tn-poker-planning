@@ -1,1 +1,1 @@
-export * from "./IssueItem";
+export * from './IssueItem';

@@ -1,16 +1,16 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
-import { Button, Input, Label } from "~/components/atoms";
-import { SocialAuthButton } from "~/components/molecules";
+import { Button, Input, Label } from '~/components/atoms';
+import { SocialAuthButton } from '~/components/molecules';
 
-import { AuthFormProps } from "./AuthForm.types";
+import { AuthFormProps } from './AuthForm.types';
 
 export const AuthForm: React.FC<AuthFormProps> = ({ onLogin, className }) => {
   const browserUserName = useRef<HTMLInputElement>(null);
   const onBrowserLogin = () => {
     const userName = browserUserName?.current?.value;
     if (!userName) return;
-    onLogin("browser", userName);
+    onLogin('browser', userName);
   };
   return (
     <form
@@ -34,17 +34,17 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onLogin, className }) => {
       <div className="flex justify-center gap-6">
         <SocialAuthButton
           provider="google"
-          onClick={() => onLogin("google")}
+          onClick={() => onLogin('google')}
           className="text-red-100"
         />
         <SocialAuthButton
           provider="github"
-          onClick={() => onLogin("github")}
+          onClick={() => onLogin('github')}
           className="text-white"
         />
         <SocialAuthButton
           provider="facebook"
-          onClick={() => onLogin("facebook")}
+          onClick={() => onLogin('facebook')}
           className="text-blue-200"
         />
       </div>

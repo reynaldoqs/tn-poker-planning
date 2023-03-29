@@ -1,6 +1,6 @@
-import * as PrimitiveToggleGroup from "@radix-ui/react-toggle-group";
+import * as PrimitiveToggleGroup from '@radix-ui/react-toggle-group';
 
-import { ToggleGroupProps } from "./ToggleGroup.types";
+import { ToggleGroupProps } from './ToggleGroup.types';
 
 export const ToggleGroup: React.FC<ToggleGroupProps> = ({
   options = [],

@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next/types";
-import { Server, ServerOptions } from "socket.io";
-import print from "consola";
+import { NextApiRequest, NextApiResponse } from 'next/types';
+import { Server, ServerOptions } from 'socket.io';
+import print from 'consola';
 
-import dbConnect from "~/models/Room.helper";
-import { RoomSocketManager } from "~/listeners/socketManager.server";
-import { MongoDatabase } from "~/models/roomStoreManager";
+import dbConnect from '~/models/Room.helper';
+import { RoomSocketManager } from '~/listeners/socketManager.server';
+import { MongoDatabase } from '~/models/roomStoreManager';
 
 const socketHandler = async (
   _: NextApiRequest,
@@ -17,7 +17,7 @@ const socketHandler = async (
   await dbConnect();
 
   if (res.socket.server.io) {
-    print.info("Socket is already running");
+    print.info('Socket is already running');
   } else {
     const io = new Server(res.socket.server);
     res.socket.server.io = io;

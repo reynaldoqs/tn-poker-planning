@@ -1,14 +1,14 @@
-import { Avatar } from "~/components/atoms";
-import { PlayerItemProps } from "./PlayerItem.types";
+import { Avatar } from '~/components/atoms';
+import { PlayerItemProps } from './PlayerItem.types';
 
 export const PlayerItem: React.FC<PlayerItemProps> = ({ player, ...rest }) => {
-  const isObserver = player.type === "OBSERVER";
-  const isDisconnected = player.status === "DISCONNECTED";
+  const isObserver = player.type === 'OBSERVER';
+  const isDisconnected = player.status === 'DISCONNECTED';
 
   return (
     <div
       className={`flex items-center justify-center gap-4 grayscale${
-        isDisconnected ? "" : "-0"
+        isDisconnected ? '' : '-0'
       }`}
       {...rest}
     >

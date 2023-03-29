@@ -5,11 +5,11 @@ import {
   Player,
   Room,
   RoomConfig,
-} from "~/types";
-import { isAuthorizedToManage } from "~/utils";
-import { RoomDatabase } from "./models.types";
+} from '~/types';
+import { isAuthorizedToManage } from '~/utils';
+import { RoomDatabase } from './models.types';
 
-import DBRoom from "./Room.Schema";
+import DBRoom from './Room.Schema';
 
 export class MongoDatabase implements RoomDatabase {
   private static _instance: MongoDatabase;
@@ -36,17 +36,17 @@ export class MongoDatabase implements RoomDatabase {
     const response = await DBRoom.findOneAndUpdate(
       {
         _id: roomId,
-        "players.playerId": player.playerId,
+        'players.playerId': player.playerId,
       },
       {
         $set: {
-          "players.$.reaction": player.reaction,
-          "players.$.avatar": player.avatar,
-          "players.$.cardBackground": player.cardBackground,
-          "players.$.name": player.name,
-          "players.$.status": player.status,
-          "players.$.type": player.type,
-          "players.$.voteValue": player.voteValue,
+          'players.$.reaction': player.reaction,
+          'players.$.avatar': player.avatar,
+          'players.$.cardBackground': player.cardBackground,
+          'players.$.name': player.name,
+          'players.$.status': player.status,
+          'players.$.type': player.type,
+          'players.$.voteValue': player.voteValue,
         },
       },
       { new: true }
@@ -57,16 +57,16 @@ export class MongoDatabase implements RoomDatabase {
   public async updatePlayerStatus(
     roomId: string,
     playerId: string,
-    status: Room["players"][number]["status"]
+    status: Room['players'][number]['status']
   ) {
     const response = await DBRoom.findOneAndUpdate(
       {
         _id: roomId,
-        "players.playerId": playerId,
+        'players.playerId': playerId,
       },
       {
         $set: {
-          "players.$.status": status,
+          'players.$.status': status,
         },
       },
       { new: true }
@@ -103,11 +103,11 @@ export class MongoDatabase implements RoomDatabase {
       },
       {
         $set: {
-          [`players.$[outer].voteValue`]: "",
-          [`players.$[outer].reaction`]: "",
+          [`players.$[outer].voteValue`]: '',
+          [`players.$[outer].reaction`]: '',
         },
       },
-      { arrayFilters: [{ "outer.type": "PLAYER" }] }
+      { arrayFilters: [{ 'outer.type': 'PLAYER' }] }
     );
     return response as DocumentRoom;
   }
@@ -119,22 +119,22 @@ export class MongoDatabase implements RoomDatabase {
   ) {
     const configToUpdate = {
       ...(config.authentication && {
-        "roomConfig.authentication": config.authentication,
+        'roomConfig.authentication': config.authentication,
       }),
       ...(config.issues && {
-        "roomConfig.issues": config.issues,
+        'roomConfig.issues': config.issues,
       }),
       ...(config.owner && {
-        "roomConfig.owner": config.owner,
+        'roomConfig.owner': config.owner,
       }),
       ...(config.title && {
-        "roomConfig.title": config.title,
+        'roomConfig.title': config.title,
       }),
       ...(config.whoCanManage && {
-        "roomConfig.whoCanManage": config.whoCanManage,
+        'roomConfig.whoCanManage': config.whoCanManage,
       }),
       ...(config.withTimer && {
-        "roomConfig.withTimer": config.withTimer,
+        'roomConfig.withTimer': config.withTimer,
       }),
     };
 

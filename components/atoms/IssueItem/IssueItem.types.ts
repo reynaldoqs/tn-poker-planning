@@ -1,5 +1,5 @@
-import { RoomConfig } from "~/types";
+import { RoomConfig } from '~/types';
 
 export type IssueItemProps = {
-  issue: Exclude<RoomConfig["issues"], undefined>[number];
+  issue: Exclude<RoomConfig['issues'], undefined>[number];
 };

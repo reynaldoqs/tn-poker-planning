@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
-import * as localStorageService from "~/services/storage";
-import { LOCAL_USER_KEY } from "~/constants";
-import { User, UserSchema } from "~/types";
-import { useBoundStore } from "~/stores";
-import { Avatar, Button, Modal } from "~/components/atoms";
-import { DropdownMenu } from "~/components/molecules";
+import * as localStorageService from '~/services/storage';
+import { LOCAL_USER_KEY } from '~/constants';
+import { User, UserSchema } from '~/types';
+import { useBoundStore } from '~/stores';
+import { Avatar, Button, Modal } from '~/components/atoms';
+import { DropdownMenu } from '~/components/molecules';
 
-import { AuthForm } from "../AuthForm";
+import { AuthForm } from '../AuthForm';
 
 export const UserManager: React.FC<{ isRoomBoard: boolean }> = ({
   isRoomBoard,
@@ -22,7 +22,7 @@ export const UserManager: React.FC<{ isRoomBoard: boolean }> = ({
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
-    if (status !== "unauthenticated") return;
+    if (status !== 'unauthenticated') return;
     const localUser = localStorageService.getItem<User>(LOCAL_USER_KEY);
     if (localUser) {
       const parsedUser = UserSchema.parse(localUser);

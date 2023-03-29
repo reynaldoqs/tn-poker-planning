@@ -1,6 +1,6 @@
-import { Button } from "~/components/atoms";
-import { PlayerItem } from "~/components/molecules";
-import { useBoundStore } from "~/stores";
+import { Button } from '~/components/atoms';
+import { PlayerItem } from '~/components/molecules';
+import { useBoundStore } from '~/stores';
 
 export const PlayersPanel: React.FC = () => {
   const players = useBoundStore((state) => state.players);

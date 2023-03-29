@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { FeatureCardProps } from "./FeatureCard.types";
+import { FeatureCardProps } from './FeatureCard.types';
 
 export const FeatureCard: React.FC<FeatureCardProps> = ({
   icon,

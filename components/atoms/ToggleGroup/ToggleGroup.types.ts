@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export type ToggleGroupProps = React.HTMLAttributes<HTMLDivElement> & {
   options: { value: string; label: string }[];

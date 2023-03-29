@@ -2,28 +2,28 @@ import {
   faAccessibleIcon,
   faDiscord,
   faSlack,
-} from "@fortawesome/free-brands-svg-icons";
+} from '@fortawesome/free-brands-svg-icons';
 
-import { FeatureCard } from "~/components/molecules";
+import { FeatureCard } from '~/components/molecules';
 
 const features = [
   {
-    title: "Discord",
-    description: "Friendly bot that allows to manage rooms",
+    title: 'Discord',
+    description: 'Friendly bot that allows to manage rooms',
     icon: faDiscord,
-    className: "text-[#6c82cf]",
+    className: 'text-[#6c82cf]',
   },
   {
-    title: "Slack",
-    description: "Friendly bot that allows to manage rooms",
+    title: 'Slack',
+    description: 'Friendly bot that allows to manage rooms',
     icon: faSlack,
-    className: "text-[#cedec8]",
+    className: 'text-[#cedec8]',
   },
   {
-    title: "Accessible",
-    description: "Plannings usable to as many people as possible",
+    title: 'Accessible',
+    description: 'Plannings usable to as many people as possible',
     icon: faAccessibleIcon,
-    className: "text-[#2cad77]",
+    className: 'text-[#2cad77]',
   },
 ];
 

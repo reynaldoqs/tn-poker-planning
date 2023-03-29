@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 import {
   ISSUE_STATUS,
@@ -9,8 +9,8 @@ import {
   PLAYER_STATUS,
   AVAILABLE_REACTIONS,
   PLAYER_TYPES,
-} from "~/constants";
-import type { DocumentRoom, Room } from "~/types";
+} from '~/constants';
+import type { DocumentRoom, Room } from '~/types';
 
 // WARNING: This schema needs to stay synced with Room type in ./types/room.ts
 
@@ -92,6 +92,6 @@ const roomSchema = new Schema<DocumentRoom>({
 });
 const RoomModel =
   mongoose.models.Room ||
-  mongoose.model<DocumentRoom, Room>("Room", roomSchema);
+  mongoose.model<DocumentRoom, Room>('Room', roomSchema);
 
 export default RoomModel;

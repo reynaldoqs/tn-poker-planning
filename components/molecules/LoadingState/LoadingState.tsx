@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from 'framer-motion';
 
-import { Loader } from "~/components/atoms";
-import { LoadingStateProps } from "./LoadingState.types";
+import { Loader } from '~/components/atoms';
+import { LoadingStateProps } from './LoadingState.types';
 
 export const LoadingState: React.FC<LoadingStateProps> = ({ isLoading }) => (
   <AnimatePresence>

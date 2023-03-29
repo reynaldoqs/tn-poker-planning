@@ -1,7 +1,7 @@
-import { forwardRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { forwardRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { InputProps } from "./Input.types";
+import { InputProps } from './Input.types';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
@@ -47,4 +47,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   )
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';

@@ -1,4 +1,4 @@
-import { Player } from "~/types";
+import { Player } from '~/types';
 
 export type PlayerItemProps = React.HTMLAttributes<HTMLDivElement> & {
   player: Player;

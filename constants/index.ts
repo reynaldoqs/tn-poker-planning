@@ -1,2 +1,2 @@
-export * from "./configuration";
-export * from "./animations";
+export * from './configuration';
+export * from './animations';

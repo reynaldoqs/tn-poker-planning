@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { cruder } from "~/lib";
-import { DocumentRoom, Room } from "~/types";
+import { cruder } from '~/lib';
+import { DocumentRoom, Room } from '~/types';
 
-const rooms = cruder("/api")("room");
+const rooms = cruder('/api')('room');
 
 export const createRoom = (room: Room): Promise<DocumentRoom> =>
   rooms.create<Room, DocumentRoom>(room);

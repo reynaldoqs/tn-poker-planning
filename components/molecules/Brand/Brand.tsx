@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Logo from "~/public/assets/PPPP_logo.png";
+import Image from 'next/image';
+import Logo from '~/public/assets/PPPP_logo.png';
 
 export const Brand: React.FC = () => (
   <div className="flex items-center justify-center gap-6">
