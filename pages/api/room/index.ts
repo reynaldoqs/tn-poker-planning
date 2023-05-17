@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { MongoDatabase } from '~/models';
-import dbConnect from '~/models/Room.helper';
+import dbConnect from '~/services/storage/mongodb/connection.server';
+import { MongoDatabase } from '~/services/storage/mongodb/roomdbManagger.server';
 
 export default async function handler(
   { method, body }: NextApiRequest,

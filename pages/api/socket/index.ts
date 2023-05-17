@@ -1,10 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next/types';
-import { Server, ServerOptions } from 'socket.io';
 import print from 'consola';
+import type { NextApiRequest, NextApiResponse } from 'next/types';
+import type { ServerOptions } from 'socket.io';
+import { Server } from 'socket.io';
 
-import dbConnect from '~/models/Room.helper';
-import { RoomSocketManager } from '~/listeners/socketManager.server';
-import { MongoDatabase } from '~/models/roomStoreManager';
+import dbConnect from '~/services/storage/mongodb/connection.server';
+import { MongoDatabase } from '~/services/storage/mongodb/roomdbManagger.server';
+import { RoomSocketManager } from '~/socket/socketManager.server';
 
 const socketHandler = async (
   _: NextApiRequest,

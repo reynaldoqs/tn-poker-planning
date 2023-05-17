@@ -1,11 +1,10 @@
 import { VoteCard, VoteSlot } from '~/components/atoms';
 
-import { GameTableProps, TableSections } from './GameTable.types';
 import { orderPlayersToSections } from './GameTable.helper';
+import type { GameTableProps, TableSections } from './GameTable.types';
 
 export const GameTable: React.FC<GameTableProps> = ({
   votes = [],
-  localBoardStatus,
   currentPlayer,
   currentPlayerSlotRef,
   children,
@@ -28,7 +27,7 @@ export const GameTable: React.FC<GameTableProps> = ({
           />
           {player.playerId !== currentPlayer.playerId && player.voteValue && (
             <VoteCard
-              className="absolute top-0 left-0"
+              className="absolute left-0 top-0"
               value={player.voteValue}
               showVoteValue={false}
               cardBackgroundImg={player.cardBackground}

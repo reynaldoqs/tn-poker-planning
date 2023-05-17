@@ -1,5 +1,6 @@
 import { Avatar } from '~/components/atoms';
-import { PlayerItemProps } from './PlayerItem.types';
+
+import type { PlayerItemProps } from './PlayerItem.types';
 
 export const PlayerItem: React.FC<PlayerItemProps> = ({ player, ...rest }) => {
   const isObserver = player.type === 'OBSERVER';

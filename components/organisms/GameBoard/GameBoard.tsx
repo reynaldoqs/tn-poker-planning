@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 
-import { useBoundStore } from '~/stores';
 import { GameTable } from '~/components/molecules/GameTable';
+import { useBoundStore } from '~/stores';
 import { getOffset } from '~/utils';
+
 import { Deck } from '../Deck';
 import { GameControl } from '../GameControl';
 import { GameHeader } from '../GameHeader';
@@ -12,11 +13,6 @@ export const GameBoard: React.FC = () => {
   const currentPlayer = useBoundStore((state) => state.currentPlayer);
   const localBoardStatus = useBoundStore((state) => state.localBoardStatus);
   const playersVote = useBoundStore((state) => state.players);
-  const updateVote = useBoundStore((state) => state.updateVote);
-
-  const playersVoteWithoutCurrentPlayer = playersVote.filter(
-    (player) => player.playerId !== currentPlayer?.playerId
-  );
 
   const currentUserSlot = useRef<HTMLDivElement>(null);
 
@@ -40,7 +36,6 @@ export const GameBoard: React.FC = () => {
           boardConfig={boardConfig}
           targetSlotOffset={targetSlotOffset}
           currentPlayer={currentPlayer}
-          onSelectVote={updateVote}
         />
       </footer>
     </div>

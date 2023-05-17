@@ -1,5 +1,6 @@
-import { Player } from '~/types';
-import { TableSections } from './GameTable.types';
+import type { Player } from '~/types';
+
+import type { TableSections } from './GameTable.types';
 
 export const orderPlayersToSections = (players: Player[]) => {
   return players.reduce(

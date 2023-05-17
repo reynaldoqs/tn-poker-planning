@@ -1,4 +1,4 @@
-import { AUTH_PROVIDERS } from '~/constants';
+import type { AUTH_PROVIDERS } from '~/constants';
 
 export type AuthFormProps = {
   className?: string;

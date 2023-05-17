@@ -1,4 +1,4 @@
-import { RoomConfig } from '~/types';
+import type { RoomConfig } from '~/types';
 
 export type IssuesListProps = {
   roomConfig: RoomConfig;

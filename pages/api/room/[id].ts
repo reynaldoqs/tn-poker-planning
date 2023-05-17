@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MongoDatabase } from '~/models';
+
+import { MongoDatabase } from '~/services/storage/mongodb/roomdbManagger.server';
 
 export default async function handler(
   { query: { id }, method }: NextApiRequest,
@@ -7,7 +8,6 @@ export default async function handler(
 ) {
   if (method === 'GET' && typeof id === 'string') {
     const db = MongoDatabase.Instance;
-    console.log('aqui es el 2');
     const room = await db.getRoom(id);
     if (!room)
       return res

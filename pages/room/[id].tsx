@@ -1,18 +1,19 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import {
-  MainNavbar,
-  MainBackground,
-  PlayersPanel,
   GameBoard,
+  MainBackground,
+  MainNavbar,
+  PlayersPanel,
 } from '~/components';
 import { LoadingState } from '~/components/molecules/LoadingState';
-
-import { NAV_KEY_ID, ROOM_KEY_ID } from '~/constants';
-import { DocumentRoom } from '~/types';
-import dbConnect from '~/models/Room.helper';
-import { MongoDatabase } from '~/models';
-import { withInitialData } from '~/HOC';
+import { ROOM_KEY_ID } from '~/constants';
+import { withInitialData } from '~/hocs';
+import dbConnect from '~/services/storage/mongodb/connection.server';
+import { MongoDatabase } from '~/services/storage/mongodb/roomdbManagger.server';
+import { useBoundStore } from '~/stores';
+import type { DocumentRoom } from '~/types';
 
 export const getServerSideProps = async ({ params }: any) => {
   await dbConnect();
@@ -29,11 +30,19 @@ type RoomProps = {
 };
 
 const Room: React.FC<RoomProps> = ({ room }) => {
+  const subscribeRoomEvents = useBoundStore(
+    (state) => state.subscribeRoomEvents
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   const clearStates = () => {
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    subscribeRoomEvents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <BackGroundWithLoadInitialData room={room}>
@@ -47,7 +56,7 @@ const Room: React.FC<RoomProps> = ({ room }) => {
         </div>
         <div className="[grid-area:main]">
           <motion.div
-            className="relative grid h-full w-full grid-cols-[auto_1fr] overflow-hidden rounded-tr-pk_lg bg-bgLight md:grid-cols-[240px_1fr]"
+            className="md:grid-cols-[240px_1fr] relative grid h-full w-full grid-cols-[auto_1fr] overflow-hidden rounded-tr-pk_lg bg-bgLight"
             layoutId={ROOM_KEY_ID}
             transition={{ duration: 0.5 }}
           >

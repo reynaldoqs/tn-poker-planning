@@ -1,17 +1,17 @@
-import { z } from 'zod';
 import type { Document } from 'mongoose';
+import { z } from 'zod';
 
 import {
-  ISSUE_STATUS,
   AUTH_PROVIDERS,
-  MANAGE_OPTIONS,
-  VOTE_TYPES,
-  BOARD_STATUS,
-  PLAYER_STATUS,
   AVAILABLE_REACTIONS,
+  BOARD_STATUS,
+  ISSUE_STATUS,
+  MANAGE_OPTIONS,
+  PLAYER_STATUS,
   PLAYER_TYPES,
+  VOTE_TYPES,
 } from '~/constants';
-import { ValuesOf } from './misc';
+import { ValuesOf } from '~/utils';
 
 export const RoomSchema = z.object({
   roomConfig: z.object({

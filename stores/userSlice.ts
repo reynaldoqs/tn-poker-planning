@@ -1,19 +1,19 @@
-import { StateCreator } from 'zustand';
 import {
   signIn as nextAuthSignIn,
   signOut as nextAuthSignOut,
 } from 'next-auth/react';
+import { StateCreator } from 'zustand';
 
 import { AUTH_PROVIDERS, LOCAL_USER_KEY } from '~/constants';
-import { User, UserSchema } from '~/types';
 import { generateLocalUser } from '~/services/browserAuth';
 import * as localStorageService from '~/services/storage';
-import { RoomSlice, UserSlice } from './stores.types';
+import { User, UserSchema } from '~/types';
+import { RoomSlice } from './roomSlice.types';
+import { UserSlice } from './userSlice.types';
 
-const onBrowserAuth = async (name: string) => {
-  const localUser = await generateLocalUser(name);
-  const parsedUser = UserSchema.parse(localUser);
-  return parsedUser;
+const signInWithBrowser = async (name: string) => {
+  const validatedUser = UserSchema.parse(await generateLocalUser(name));
+  return validatedUser;
 };
 
 const createUserSlice: StateCreator<
@@ -25,23 +25,23 @@ const createUserSlice: StateCreator<
   user: null,
   signIn: async (provider: keyof typeof AUTH_PROVIDERS, name?: string) => {
     if (provider === AUTH_PROVIDERS.browser && name) {
-      const localUser = await onBrowserAuth(name);
-      localStorageService.setItem(localUser, LOCAL_USER_KEY);
-      set({ user: localUser });
-      return;
+      const user = await signInWithBrowser(name);
+      localStorageService.setItem(user, LOCAL_USER_KEY);
+      set((state) => ({ ...state, user }));
+    } else {
+      nextAuthSignIn(provider);
     }
-    nextAuthSignIn(provider);
   },
   signOut: async () => {
     const user = get().user;
     if (user?.provider === AUTH_PROVIDERS.browser) {
       localStorageService.removeItem(LOCAL_USER_KEY);
-      set({ user: null });
-      return;
+      set((state) => ({ ...state, user: null }));
+    } else {
+      nextAuthSignOut();
     }
-    nextAuthSignOut();
   },
-  setUser: (user: User) => set({ user }),
+  setUser: (user: User) => set((state) => ({ ...state, user })),
 });
 
 export default createUserSlice;

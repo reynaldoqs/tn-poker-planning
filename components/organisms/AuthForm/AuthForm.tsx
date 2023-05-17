@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { Button, Input, Label } from '~/components/atoms';
 import { SocialAuthButton } from '~/components/molecules';
 
-import { AuthFormProps } from './AuthForm.types';
+import type { AuthFormProps } from './AuthForm.types';
 
 export const AuthForm: React.FC<AuthFormProps> = ({ onLogin, className }) => {
   const browserUserName = useRef<HTMLInputElement>(null);

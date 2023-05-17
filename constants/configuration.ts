@@ -7,7 +7,7 @@ export const AUTH_PROVIDERS = {
 } as const;
 
 export const BOARD_STATUS = [
-  'INIT',
+  'IDLE',
   'VOTING',
   'SHOWING_RESULTS',
   //"PREPARING_NEXT_ROUND",

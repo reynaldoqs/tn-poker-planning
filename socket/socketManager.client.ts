@@ -1,15 +1,8 @@
-import { io, Socket } from 'socket.io-client';
-import {
-  BoardConfig,
-  BoardStatus,
-  DocumentRoom,
-  Player,
-  PokerPlanningError,
-  Room,
-  RoomConfig,
-} from '~/types';
 import print from 'consola';
+import { io, Socket } from 'socket.io-client';
+import { BoardConfig, BoardStatus, Player, RoomConfig } from '~/types';
 
+import { PokerPlanningError } from '~/utils';
 import {
   ClientToServerEvents,
   ServerToClientEvents,
@@ -114,7 +107,6 @@ export class RoomSocketManager {
   // system subscriptions
   public subscribeSysConnect(cb: () => void) {
     this._socket?.on('connect', () => {
-      console.log('ESTAMOS CONECTADOS CARAJOOOOOOOOOOOOOOOOOOOOOOOO');
       cb();
     });
   }

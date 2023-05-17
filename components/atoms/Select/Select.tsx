@@ -1,8 +1,8 @@
-import * as SelectPrimitive from '@radix-ui/react-select';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import * as SelectPrimitive from '@radix-ui/react-select';
 
-import { SelectProps } from './Select.types';
+import type { SelectProps } from './Select.types';
 
 export const Select: React.FC<SelectProps> = ({
   options = [],
@@ -26,7 +26,7 @@ export const Select: React.FC<SelectProps> = ({
                 <SelectPrimitive.Item
                   key={value}
                   value={value}
-                  className="flex cursor-pointer select-none justify-between py-3 px-3 text-sm hover:bg-primary hover:outline-none"
+                  className="flex cursor-pointer select-none justify-between px-3 py-3 text-sm hover:bg-primary hover:outline-none"
                 >
                   <SelectPrimitive.ItemText>{label}</SelectPrimitive.ItemText>
                   <SelectPrimitive.ItemIndicator>

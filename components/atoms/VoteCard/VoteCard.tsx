@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { VoteCardProps } from './VoteCard.types';
+import type { VoteCardProps } from './VoteCard.types';
 
 const DEFAULT_BG = '/assets/card_bg.png';
 

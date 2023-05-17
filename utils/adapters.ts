@@ -1,7 +1,7 @@
-import { PLAYER_TYPES } from '~/constants';
-import { Player, User } from '~/types';
+import type { PLAYER_TYPES } from '~/constants';
+import type { Player, User } from '~/types';
 
-export const userToPlayer = (
+export const userToPlayerAdapter = (
   user: User,
   role: (typeof PLAYER_TYPES)[number]
 ) => {

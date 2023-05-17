@@ -1,6 +1,6 @@
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 
-import { AvatarProps } from './Avatar.types';
+import type { AvatarProps } from './Avatar.types';
 
 const getAltInitials = (alt: string) => {
   if (!alt) return 'NA';

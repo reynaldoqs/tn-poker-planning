@@ -1,6 +1,8 @@
-import { Server } from 'socket.io';
 import print from 'consola';
+import { Server } from 'socket.io';
 
+import { RoomDatabase } from '~/services/storage/mongodb/roomDB.types';
+import { Player } from '~/types';
 import { extractParticipant, includesParticipant } from '~/utils';
 import {
   ClientToServerEvents,
@@ -8,8 +10,6 @@ import {
   ServerToClientEvents,
   SocketData,
 } from './socketManager.types';
-import { RoomDatabase } from '~/models/models.types';
-import { Player } from '~/types';
 
 export class RoomSocketManager {
   private io: Server<

@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
-import * as localStorageService from '~/services/storage';
-import { LOCAL_USER_KEY } from '~/constants';
-import { User, UserSchema } from '~/types';
-import { useBoundStore } from '~/stores';
 import { Avatar, Button, Modal } from '~/components/atoms';
 import { DropdownMenu } from '~/components/molecules';
+import { LOCAL_USER_KEY } from '~/constants';
+import * as localStorageService from '~/services/storage';
+import { useBoundStore } from '~/stores';
+import type { User } from '~/types';
+import { UserSchema } from '~/types';
 
 import { AuthForm } from '../AuthForm';
 
-export const UserManager: React.FC<{ isRoomBoard: boolean }> = ({
-  isRoomBoard,
+export const UserManager: React.FC<{ _isRoomBoard: boolean }> = ({
+  _isRoomBoard,
 }) => {
   const { data: session, status } = useSession();
   const setUser = useBoundStore((state) => state.setUser);

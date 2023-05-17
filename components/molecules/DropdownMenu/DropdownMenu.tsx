@@ -10,7 +10,7 @@ import {
 import { MenuItem } from '~/components/atoms';
 import { extractProviderIcon, isPlayer } from '~/utils';
 
-import { DropdownMenuProps } from './DropdownMenu.types';
+import type { DropdownMenuProps } from './DropdownMenu.types';
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   trigger,

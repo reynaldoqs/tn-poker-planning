@@ -37,6 +37,11 @@ export class PokerPlanningError extends Error {
   }
 }
 
+export type FunctionPropertyNames<T> = {
+  [K in keyof T]: T[K] extends Function ? K : never;
+}[keyof T];
+
+export type OmitFuncType<T> = Omit<T, FunctionPropertyNames<T>>;
 // export type CurrentPlayerCardSlotPosition = {
 //   x: number;
 //   y: number;

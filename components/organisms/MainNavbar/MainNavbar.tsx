@@ -1,15 +1,15 @@
+import { motion } from 'framer-motion';
+
 import { Brand } from '~/components/molecules';
+import { NAV_KEY_ID } from '~/constants';
 import { useBoundStore } from '~/stores';
 
 import { UserManager } from '../UserManager';
-import { MainNavbarProps } from './MainNavbar.types';
-import { motion } from 'framer-motion';
-import { NAV_KEY_ID } from '~/constants';
+import type { MainNavbarProps } from './MainNavbar.types';
 
 export const MainNavbar: React.FC<MainNavbarProps> = ({
   initialRoom,
   className,
-  ...rest
 }) => {
   const signOut = useBoundStore((state) => state.signOut);
 
@@ -37,7 +37,7 @@ export const MainNavbar: React.FC<MainNavbarProps> = ({
           Premium
         </li>
         <li>
-          <UserManager isRoomBoard={isRoomBoard} />
+          <UserManager _isRoomBoard={isRoomBoard} />
         </li>
       </ul>
     </motion.nav>

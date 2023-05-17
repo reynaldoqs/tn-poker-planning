@@ -1,13 +1,11 @@
-import { Button, StatePaths } from '~/components/atoms';
 import { GameStateContent } from '~/components/molecules';
 import { useBoundStore } from '~/stores';
 
 export const GameControl: React.FC = () => {
-  const boardConfig = useBoundStore((state) => state.boardConfig);
   const roomConfig = useBoundStore((state) => state.roomConfig);
   const currentPlayer = useBoundStore((state) => state.currentPlayer);
   const localBoardStatus = useBoundStore((state) => state.localBoardStatus);
-  const playersVote = useBoundStore((state) => state.players);
+  const players = useBoundStore((state) => state.players);
   const onNextGameState = useBoundStore((state) => state.nextGameState);
 
   const canControl =
@@ -15,11 +13,16 @@ export const GameControl: React.FC = () => {
       ? true
       : currentPlayer?.playerId === roomConfig?.owner?.providerId;
 
+  const validVotes = players
+    .map((player) => player.voteValue)
+    .filter(Boolean) as string[];
+
   return (
     <div className="h-full w-full p-5 pt-7">
       <div className="flex h-full w-full items-center justify-center">
         <GameStateContent
           state={localBoardStatus}
+          votes={validVotes}
           hasControls={canControl}
           onNextGameState={onNextGameState}
         />

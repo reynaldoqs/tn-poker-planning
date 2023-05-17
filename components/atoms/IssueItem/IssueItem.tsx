@@ -1,5 +1,5 @@
 import { Button } from '../Button';
-import { IssueItemProps } from './IssueItem.types';
+import type { IssueItemProps } from './IssueItem.types';
 
 export const IssueItem: React.FC<IssueItemProps> = ({ issue }) => (
   <div className="rounded-xl bg-bgLight px-4 py-3">

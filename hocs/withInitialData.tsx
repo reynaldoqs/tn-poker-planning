@@ -1,12 +1,15 @@
 import { ReactElement, useEffect } from 'react';
 
-import { RoomSocketManager } from '~/listeners/socketManager.client';
+import { RoomSocketManager } from '~/socket/socketManager.client';
 import { useBoundStore } from '~/stores';
 import { DocumentRoom } from '~/types';
-import { userToPlayer } from '~/utils';
+import { userToPlayerAdapter } from '~/utils';
 
 let executed = false;
 
+/**
+ * @description This HOC is used to load the initial data of the room to the store
+ */
 export const withInitialData =
   <T extends unknown>(WrapperComponent: React.ComponentType<T>) =>
   // eslint-disable-next-line react/display-name
@@ -22,7 +25,7 @@ export const withInitialData =
       if (user && connected && !executed) {
         const roomSocketManager = RoomSocketManager.Instance;
         roomSocketManager.roomId = room._id;
-        const currentPlayer = userToPlayer(user!, 'PLAYER');
+        const currentPlayer = userToPlayerAdapter(user!, 'PLAYER');
         checkoutPlayer(currentPlayer);
         join(currentPlayer);
         loadInitialRoom(room);

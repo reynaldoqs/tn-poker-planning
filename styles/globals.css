@@ -37,3 +37,8 @@ body {
     'left middle right'
     'left bottom right';
 }
+
+ms-avatar {
+  background-color: red;
+  width: 400px;
+}

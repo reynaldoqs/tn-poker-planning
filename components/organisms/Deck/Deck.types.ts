@@ -1,4 +1,4 @@
-import { BoardConfig, Player } from '~/types';
+import type { BoardConfig, Player } from '~/types';
 
 export type DeckProps = React.HTMLAttributes<HTMLDivElement> & {
   boardConfig: BoardConfig;

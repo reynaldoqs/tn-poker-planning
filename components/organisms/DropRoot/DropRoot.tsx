@@ -27,9 +27,7 @@ const features = [
   },
 ];
 
-export const DropRoot: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
-  props
-) => (
+export const DropRoot: React.FC<React.HTMLAttributes<HTMLDivElement>> = () => (
   <section className="relative flex flex-col gap-9">
     <div>
       <h1 className="text-center text-5xl font-black text-primary md:text-left">
@@ -39,9 +37,11 @@ export const DropRoot: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
         Make it easy, magic.
       </h2>
     </div>
-    <p className="text-md text-center font-semibold text-txtDark md:text-left">
-      Create better estimates, healthier sprints, and happier teams.
-      <br /> With tons of advantages:
+    <p className="text-md text-center font-semibold leading-6 text-txtDark md:text-left">
+      Create more accurate estimations, healthier sprints, and happier teams
+      with this application.
+      <br /> Our app offers a variety of advantages that can help you achieve
+      your goals.
     </p>
     <div className="flex select-none flex-wrap items-center justify-center gap-8  md:justify-start md:gap-4 lg:gap-8">
       {features.map(({ title, description, icon, className }) => (

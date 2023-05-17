@@ -18,7 +18,7 @@ module.exports = {
         txtMedium: '#D6D3D3',
         txtDark: '#828282',
         primary: '#D1342F',
-        secondary: '#01B763',
+        secondary: '#633493',
         error: '#ff0047',
         success: '#01dc69',
       },

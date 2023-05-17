@@ -1,10 +1,10 @@
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useRef } from 'react';
 
+import { VoteCard } from '~/components/atoms';
 import { getOffset } from '~/utils';
 
-import { PlayerVoteProps } from './PlayerVote.types';
-import { VoteCard } from '~/components/atoms';
+import type { PlayerVoteProps } from './PlayerVote.types';
 
 export const PlayerVote: React.FC<PlayerVoteProps> = ({
   currentPlayer,
@@ -15,7 +15,7 @@ export const PlayerVote: React.FC<PlayerVoteProps> = ({
 }) => {
   const currentBoxRef = useRef<HTMLLIElement>(null);
   const { x: boxX, y: boxY } = getOffset(currentBoxRef.current);
-  const i = 2;
+
   const variants = {
     selected: {
       x: targetSlotPosition.x - boxX,

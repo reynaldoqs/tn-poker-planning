@@ -1,4 +1,4 @@
-import { DialogProps } from '@radix-ui/react-dialog';
+import type { DialogProps } from '@radix-ui/react-dialog';
 
 export type ModalProps = DialogProps & {
   title: string;

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
 import print from 'consola';
+import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

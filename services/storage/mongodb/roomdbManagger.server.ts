@@ -7,9 +7,9 @@ import {
   RoomConfig,
 } from '~/types';
 import { isAuthorizedToManage } from '~/utils';
-import { RoomDatabase } from './models.types';
 
-import DBRoom from './Room.Schema';
+import { RoomModel } from './models';
+import { RoomDatabase } from './roomDB.types';
 
 export class MongoDatabase implements RoomDatabase {
   private static _instance: MongoDatabase;
@@ -22,18 +22,18 @@ export class MongoDatabase implements RoomDatabase {
   }
 
   public async createRoom(room: Room) {
-    const nRoom: DocumentRoom = new DBRoom<Room>(room);
+    const nRoom: DocumentRoom = new RoomModel<Room>(room);
     const response = await nRoom.save();
     return response;
   }
 
   public async getRoom(roomId: string) {
-    const response = await DBRoom.findById(roomId);
+    const response = await RoomModel.findById(roomId);
     return response as DocumentRoom;
   }
 
   public async updatePlayer(roomId: string, player: Player) {
-    const response = await DBRoom.findOneAndUpdate(
+    const response = await RoomModel.findOneAndUpdate(
       {
         _id: roomId,
         'players.playerId': player.playerId,
@@ -59,7 +59,7 @@ export class MongoDatabase implements RoomDatabase {
     playerId: string,
     status: Room['players'][number]['status']
   ) {
-    const response = await DBRoom.findOneAndUpdate(
+    const response = await RoomModel.findOneAndUpdate(
       {
         _id: roomId,
         'players.playerId': playerId,
@@ -75,7 +75,7 @@ export class MongoDatabase implements RoomDatabase {
   }
 
   public async pushPlayer(roomId: string, player: Player) {
-    const response = await DBRoom.findByIdAndUpdate(
+    const response = await RoomModel.findByIdAndUpdate(
       roomId,
       {
         $push: { players: player },
@@ -86,7 +86,7 @@ export class MongoDatabase implements RoomDatabase {
   }
 
   public async removePlayer(roomId: string, player: Player) {
-    const response = await DBRoom.findByIdAndUpdate(
+    const response = await RoomModel.findByIdAndUpdate(
       roomId,
       {
         $pull: { players: { playerId: player.playerId } },
@@ -97,7 +97,7 @@ export class MongoDatabase implements RoomDatabase {
   }
 
   public async resetPlayers(roomId: string) {
-    const response = await DBRoom.findByIdAndUpdate(
+    const response = await RoomModel.findByIdAndUpdate(
       {
         _id: roomId,
       },
@@ -138,7 +138,7 @@ export class MongoDatabase implements RoomDatabase {
       }),
     };
 
-    const response = await DBRoom.findOneAndUpdate(
+    const response = await RoomModel.findOneAndUpdate(
       { _id: roomId },
       { $set: configToUpdate },
       { new: true }
@@ -152,7 +152,7 @@ export class MongoDatabase implements RoomDatabase {
     status: BoardStatus,
     playerId: string
   ): Promise<DocumentRoom | undefined> {
-    const room = await DBRoom.findById(roomId);
+    const room = await RoomModel.findById(roomId);
     if (!room) return;
     const isPlayerAuthorized = isAuthorizedToManage(room, playerId);
     if (!isPlayerAuthorized) return;
@@ -166,7 +166,7 @@ export class MongoDatabase implements RoomDatabase {
     config: Partial<BoardConfig>,
     playerId: string
   ) {
-    const room = await DBRoom.findById(roomId);
+    const room = await RoomModel.findById(roomId);
     if (!room) return;
     const updatedConfig = { ...room.boardConfig, ...config };
     room.boardConfig = updatedConfig;

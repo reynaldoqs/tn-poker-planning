@@ -1,12 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type {
+  IconDefinition} from '@fortawesome/free-brands-svg-icons';
 import {
   faGithub,
   faGoogle,
-  faFacebook,
-  IconDefinition,
+  faFacebook
 } from '@fortawesome/free-brands-svg-icons';
 
-import { SocialAuthButtonProps } from './SocialAuthButton.types';
+import type { SocialAuthButtonProps } from './SocialAuthButton.types';
 
 const providerIconMap: Record<
   SocialAuthButtonProps['provider'],

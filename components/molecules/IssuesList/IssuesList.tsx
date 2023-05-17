@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { Button, Input, IssueItem } from '~/components/atoms';
+import type { RoomConfig } from '~/types';
 
-import { IssuesListProps } from './IssuesList.types';
-import { RoomConfig } from '~/types';
+import type { IssuesListProps } from './IssuesList.types';
 
 export const IssuesList: React.FC<IssuesListProps> = ({
   roomConfig: { issues, title },

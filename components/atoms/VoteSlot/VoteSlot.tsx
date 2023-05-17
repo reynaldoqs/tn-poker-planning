@@ -1,6 +1,8 @@
-import { Avatar } from '~/components/atoms';
-import { VoteSlotProps } from './VoteSlot.types';
 import { forwardRef } from 'react';
+
+import { Avatar } from '~/components/atoms';
+
+import type { VoteSlotProps } from './VoteSlot.types';
 
 export const VoteSlot = forwardRef<HTMLDivElement, VoteSlotProps>(
   ({ imgSrc, name }, ref) => {

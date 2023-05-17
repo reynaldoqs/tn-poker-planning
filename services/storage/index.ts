@@ -1,1 +1,1 @@
-export * from './storage.client';
+export * from './localStorage';

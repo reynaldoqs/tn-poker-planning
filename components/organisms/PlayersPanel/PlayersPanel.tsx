@@ -16,8 +16,16 @@ export const PlayersPanel: React.FC = () => {
         ))}
       </div>
       <div className="mt-auto flex h-full items-center justify-center">
-        <Button title="Invite Player" className="hidden md:flex" />
-        <Button title="+" className="mt-auto flex text-2xl md:hidden" />
+        <Button
+          title="Invite Player"
+          variant="primary"
+          className="hidden md:flex"
+        />
+        <Button
+          title="+"
+          variant="primary"
+          className="mt-auto flex text-2xl md:hidden"
+        />
       </div>
     </aside>
   );

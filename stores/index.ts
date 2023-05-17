@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { RoomSlice, UserSlice } from './stores.types';
-import createRoomSlice from './room';
-import createUserSlice from './user';
+import createRoomSlice from './roomSlice';
+import { RoomSlice } from './roomSlice.types';
+import createUserSlice from './userSlice';
+import { UserSlice } from './userSlice.types';
 
 export const useBoundStore = create<UserSlice & RoomSlice>()(
   devtools(

@@ -1,14 +1,5 @@
 import { motion } from 'framer-motion';
 
-const pathVariants = [
-  'M 40,40 Q 160,40 160,160',
-  'M 160,40 Q 100,100 40,160',
-  'M 160,160 Q 100,160 40,160',
-  'M 160,40 Q 100,160 40,40',
-  'M 160,40 Q 100,40 40,40',
-  'M 40,40 Q 160,40 160,160',
-];
-
 export const StatePaths: React.FC = () => {
   return (
     <div>

@@ -1,10 +1,12 @@
-import { ButtonProps } from './Button.types';
+import { clsx } from 'clsx';
 
-const sizeStyleMap: Record<Exclude<ButtonProps['size'], undefined>, string> = {
-  lg: 'rounded-xl py-3 px-8 text-lg font-bold',
-  md: 'rounded-lg py-2 px-5 text-md font-bold',
-  sm: 'rounded-lg py-1 px-3 text-sm font-semibold',
-};
+import type { ButtonProps } from './Button.types';
+
+// const sizeStyleMap: Record<Exclude<ButtonProps['size'], undefined>, string> = {
+//   lg: 'rounded-xl py-3 px-8 text-lg font-bold',
+//   md: 'rounded-lg py-2 px-5 text-md font-bold',
+//   sm: 'rounded-lg py-1 px-3 text-sm font-semibold',
+// };
 
 /**
  * This function returns a button component
@@ -31,14 +33,33 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...rest
 }) => {
-  const anudiman = `${outlined ? '' : `bg-${variant}`} active:opacity-${
-    disabled ? '20' : '40'
-  } ${sizeStyleMap[size]} ${
-    outlined ? `border${size === 'lg' ? '-2' : ''}` : ''
-  } opacity-${disabled ? '20' : '1'}  ${className}`;
+  const sizeClasses = clsx({
+    'rounded-xl py-3 px-8 text-lg font-bold': size === 'lg',
+    'rounded-lg py-2 px-5 text-md font-bold': size === 'md',
+    'rounded-lg py-1 px-3 text-sm font-semibold': size === 'sm',
+  });
+
+  const variantClasses = clsx({
+    'bg-primary': variant === 'primary' && !outlined,
+    'bg-secondary': variant === 'secondary' && !outlined,
+  });
+
+  const outlinedClasses = clsx({
+    border: outlined,
+    'border-2': outlined && size === 'lg',
+  });
+
+  const disabledClasses = clsx({
+    'opacity-20': disabled,
+    'active:opacity-20': !disabled,
+  });
 
   return (
-    <button className={anudiman} disabled={disabled} {...rest}>
+    <button
+      className={`${sizeClasses} ${variantClasses} ${outlinedClasses} ${disabledClasses} ${className}`}
+      disabled={disabled}
+      {...rest}
+    >
       {title}
     </button>
   );

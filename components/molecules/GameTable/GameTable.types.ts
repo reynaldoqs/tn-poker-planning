@@ -1,6 +1,6 @@
-import { RefObject } from 'react';
+import type { RefObject } from 'react';
 
-import { LocalBoardStatus, Player } from '~/types';
+import type { LocalBoardStatus, Player } from '~/types';
 
 export type GameTableProps = React.HTMLAttributes<HTMLDivElement> & {
   votes: Player[];

@@ -1,15 +1,46 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import"],
   "extends": ["next", "next/core-web-vitals", "eslint:recommended"],
   "globals": {
     "React": "readonly"
   },
   "rules": {
-    "no-unused-vars": [
-      1,
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
       {
-        "args": "after-used",
         "argsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": true
+      }
+    ],
+    "@typescript-eslint/prefer-as-const": "error",
+    "no-console": "error",
+    "eqeqeq": [
+      "error",
+      "always",
+      {
+        "null": "never"
+      }
+    ],
+    "no-mixed-operators": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["external", "builtin", "internal"],
+        "newlines-between": "always"
+      }
+    ],
+    "import/no-absolute-path": "error",
+    "import/no-duplicates": "error",
+    "import/no-unresolved": "error"
   }
 }

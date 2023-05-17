@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { InputProps } from './Input.types';
+import type { InputProps } from './Input.types';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (

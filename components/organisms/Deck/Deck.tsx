@@ -1,6 +1,6 @@
 import { PlayerVote } from '~/components/molecules';
 
-import { DeckProps } from './Deck.types';
+import type { DeckProps } from './Deck.types';
 
 export const Deck: React.FC<DeckProps> = ({
   boardConfig,
