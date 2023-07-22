@@ -1,14 +1,14 @@
 import mongoose, { Schema } from 'mongoose';
 
 import {
-  ISSUE_STATUS,
-  AUTH_PROVIDERS,
-  MANAGE_OPTIONS,
-  VOTE_TYPES,
-  BOARD_STATUS,
-  PLAYER_STATUS,
-  AVAILABLE_REACTIONS,
-  PLAYER_TYPES,
+    AUTH_PROVIDERS,
+    AVAILABLE_REACTIONS,
+    BOARD_STATUS,
+    ISSUE_STATUS,
+    MANAGE_OPTIONS,
+    PLAYER_STATUS,
+    PLAYER_TYPES,
+    VOTE_TYPES,
 } from '~/constants';
 import type { DocumentRoom, Room } from '~/types';
 

@@ -11,7 +11,7 @@ import {
   PLAYER_TYPES,
   VOTE_TYPES,
 } from '~/constants';
-import { ValuesOf } from '~/utils';
+import type { ValuesOf } from '~/utils';
 
 export const RoomSchema = z.object({
   roomConfig: z.object({

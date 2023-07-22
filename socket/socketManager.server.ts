@@ -1,10 +1,12 @@
 import print from 'consola';
-import { Server } from 'socket.io';
+import type { Server } from 'socket.io';
 
-import { RoomDatabase } from '~/services/storage/mongodb/roomDB.types';
-import { Player } from '~/types';
+
+import type { RoomDatabase } from '~/services/storage/mongodb/roomdb.types';
+import type { Player } from '~/types';
 import { extractParticipant, includesParticipant } from '~/utils';
-import {
+
+import type {
   ClientToServerEvents,
   InterServerEvents,
   ServerToClientEvents,

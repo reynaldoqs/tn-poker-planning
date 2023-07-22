@@ -1,8 +1,9 @@
-import { ReactElement, useEffect } from 'react';
+import type { ReactElement } from 'react';
+import { useEffect } from 'react';
 
 import { RoomSocketManager } from '~/socket/socketManager.client';
 import { useBoundStore } from '~/stores';
-import { DocumentRoom } from '~/types';
+import type { DocumentRoom } from '~/types';
 import { userToPlayerAdapter } from '~/utils';
 
 let executed = false;

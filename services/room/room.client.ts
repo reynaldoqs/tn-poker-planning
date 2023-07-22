@@ -1,5 +1,5 @@
 import { cruder } from '~/lib';
-import { DocumentRoom, Room } from '~/types';
+import type { DocumentRoom, Room } from '~/types';
 
 const rooms = cruder('/api')('room');
 

@@ -2,14 +2,16 @@ import {
   signIn as nextAuthSignIn,
   signOut as nextAuthSignOut,
 } from 'next-auth/react';
-import { StateCreator } from 'zustand';
+import type { StateCreator } from 'zustand';
 
 import { AUTH_PROVIDERS, LOCAL_USER_KEY } from '~/constants';
 import { generateLocalUser } from '~/services/browserAuth';
 import * as localStorageService from '~/services/storage';
-import { User, UserSchema } from '~/types';
-import { RoomSlice } from './roomSlice.types';
-import { UserSlice } from './userSlice.types';
+import type { User } from '~/types';
+import { UserSchema } from '~/types';
+
+import type { RoomSlice } from './roomSlice.types';
+import type { UserSlice } from './userSlice.types';
 
 const signInWithBrowser = async (name: string) => {
   const validatedUser = UserSchema.parse(await generateLocalUser(name));

@@ -16,6 +16,9 @@ body {
 *:focus {
   outline: none;
 }
+h1 {
+  color: blue;
+}
 
 .main-board-container {
   display: grid;

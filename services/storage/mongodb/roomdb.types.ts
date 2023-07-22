@@ -1,6 +1,12 @@
-import { BoardConfig, BoardStatus, Player, Room, RoomConfig } from '~/types';
+import type {
+  BoardConfig,
+  BoardStatus,
+  Player,
+  Room,
+  RoomConfig,
+} from '~/types';
 
-export interface RoomDatabase {
+export type RoomDatabase = {
   createRoom: (room: Room) => Promise<Room>;
   getRoom: (roomId: string) => Promise<Room>;
   updatePlayer: (roomId: string, player: Player) => Promise<Room>;
@@ -27,4 +33,4 @@ export interface RoomDatabase {
     config: Partial<BoardConfig>,
     playerId: string
   ) => Promise<Room | undefined>;
-}
+};

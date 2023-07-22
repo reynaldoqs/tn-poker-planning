@@ -1,9 +1,11 @@
 import print from 'consola';
-import { io, Socket } from 'socket.io-client';
-import { BoardConfig, BoardStatus, Player, RoomConfig } from '~/types';
+import type { Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
 
+import type { BoardConfig, BoardStatus, Player, RoomConfig } from '~/types';
 import { PokerPlanningError } from '~/utils';
-import {
+
+import type {
   ClientToServerEvents,
   ServerToClientEvents,
 } from './socketManager.types';

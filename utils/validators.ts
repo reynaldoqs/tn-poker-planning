@@ -1,7 +1,7 @@
-import { Player, Room, User } from '~/types';
+import type { Player, Room, User } from '~/types';
 
 export const isPlayer = (input: User | Player): input is Player => {
-  return 'type' in input && 'playerId' in input; // for now it is enough to know if input is a player
+  return 'type' in input && 'playerId' in input; 
 };
 
 export const isAuthorizedToManage = (room: Room, playerId: string) => {

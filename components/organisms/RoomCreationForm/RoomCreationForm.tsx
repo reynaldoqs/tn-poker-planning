@@ -1,7 +1,7 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import type { FormEvent} from 'react';
+import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import type { ZodError } from 'zod';
 
@@ -19,7 +19,7 @@ import { LoadingState } from '~/components/molecules/LoadingState';
 import { DECK_CARDS, DECK_OPTIONS, ROOM_KEY_ID } from '~/constants';
 import { createRoom } from '~/services/room';
 import { useBoundStore } from '~/stores';
-import type { Room, RoomConfig} from '~/types';
+import type { Room, RoomConfig } from '~/types';
 import { RoomSchema } from '~/types';
 import { extractErrorMsg } from '~/utils';
 

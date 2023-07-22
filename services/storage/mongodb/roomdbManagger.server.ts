@@ -1,4 +1,4 @@
-import {
+import type {
   BoardConfig,
   BoardStatus,
   DocumentRoom,
@@ -9,7 +9,7 @@ import {
 import { isAuthorizedToManage } from '~/utils';
 
 import { RoomModel } from './models';
-import { RoomDatabase } from './roomDB.types';
+import type { RoomDatabase } from './roomdb.types';
 
 export class MongoDatabase implements RoomDatabase {
   private static _instance: MongoDatabase;
@@ -112,11 +112,7 @@ export class MongoDatabase implements RoomDatabase {
     return response as DocumentRoom;
   }
 
-  public async updateRoomConfig(
-    roomId: string,
-    config: Partial<RoomConfig>,
-    playerId: string
-  ) {
+  public async updateRoomConfig(roomId: string, config: Partial<RoomConfig>) {
     const configToUpdate = {
       ...(config.authentication && {
         'roomConfig.authentication': config.authentication,
@@ -161,11 +157,7 @@ export class MongoDatabase implements RoomDatabase {
     return response as DocumentRoom;
   }
 
-  public async updateBoardConfig(
-    roomId: string,
-    config: Partial<BoardConfig>,
-    playerId: string
-  ) {
+  public async updateBoardConfig(roomId: string, config: Partial<BoardConfig>) {
     const room = await RoomModel.findById(roomId);
     if (!room) return;
     const updatedConfig = { ...room.boardConfig, ...config };

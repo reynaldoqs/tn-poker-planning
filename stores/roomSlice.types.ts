@@ -1,4 +1,4 @@
-import {
+import type {
   BoardConfig,
   BoardStatus,
   LocalBoardStatus,

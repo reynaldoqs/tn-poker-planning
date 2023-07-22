@@ -1,5 +1,6 @@
-import { OmitFuncType } from '~/utils';
-import { RoomSlice } from './roomSlice.types';
+import type { OmitFuncType } from '~/utils';
+
+import type { RoomSlice } from './roomSlice.types';
 
 const initial: OmitFuncType<RoomSlice> = {
   roomConfig: {

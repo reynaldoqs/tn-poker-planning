@@ -1,5 +1,21 @@
 import type { NextPage } from 'next';
 
+if (typeof window !== 'undefined') {
+  class MyTitle extends HTMLElement {
+    #root: ShadowRoot;
+    constructor() {
+      super();
+      this.#root = this.attachShadow({ mode: 'open' });
+      this.#root.innerHTML = `
+        <style>h1 {color: red}</style>
+        <h1>
+        <slot></slot>
+        </h1>
+      `;
+    }
+  }
+  customElements.define('my-title', MyTitle);
+}
 //import Head from 'next/head';
 import {
   DropRoot,

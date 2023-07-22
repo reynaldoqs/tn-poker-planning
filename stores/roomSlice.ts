@@ -1,12 +1,13 @@
 import print from 'consola';
-import { StateCreator } from 'zustand';
+import type { StateCreator } from 'zustand';
 
 import { BOARD_STATUS, COUNTDOWN_IN_SECONDS } from '~/constants';
 import { RoomSocketManager } from '~/socket/socketManager.client';
-import { Player } from '~/types';
+import type { Player } from '~/types';
+
 import { roomSliceMock } from './roomSlice.mock';
-import { RoomSlice } from './roomSlice.types';
-import { UserSlice } from './userSlice.types';
+import type { RoomSlice } from './roomSlice.types';
+import type { UserSlice } from './userSlice.types';
 
 const createRoomSlice: StateCreator<
   RoomSlice & UserSlice,

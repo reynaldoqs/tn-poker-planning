@@ -1,5 +1,5 @@
-import { AUTH_PROVIDERS } from '~/constants';
-import { User } from '~/types';
+import type { AUTH_PROVIDERS } from '~/constants';
+import type { User } from '~/types';
 
 export type UserSlice = {
   user: User | null;
